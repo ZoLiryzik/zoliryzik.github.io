@@ -1,1 +1,1 @@
-# zoliryzik.github.io
+# zoliryzik.tk

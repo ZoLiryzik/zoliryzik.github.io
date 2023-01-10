@@ -1,10 +1,8 @@
-
 body{
     margin: 0;
     padding: 0;
-    background: rgba(255,255,255,.5);
-    background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("../images/background.png");
-    color: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("../images/background.png");
+    background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(https://zoliryzik.tk/images/background.jpg);
+    min-height: 100px;
     font-family: "montserrat", sans-serif;
 }
 .container{
