@@ -1,0 +1,21 @@
+body {
+	background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(https://zoliryzik.tk/images/background.jpg);
+	color: #fff;
+	font-family: sans-serif;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+h101 {
+	text-transform: uppercase;
+	text-align: center;
+	margin-top: 150px;
+	font-size: 50px;
+}
+
+p {
+	font-size: 25px;
+	display: block;
+	margin: 0 auto;
+	width: 80%;
+}
