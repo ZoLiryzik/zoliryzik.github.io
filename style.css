@@ -3,7 +3,7 @@
   background: rgba(255,255,255,.5);
   box-shadow: 3px 0 7px rgba(0,0,0,.3);
   padding: 20px;
-		background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(https://zoliryzik.github.io/images/background.jpg);
+		background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(images/background.jpg);
 	color: #fff;
 	font-family: sans-serif;
 	background-size: cover;
