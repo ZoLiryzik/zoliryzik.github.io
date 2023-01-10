@@ -1,7 +1,7 @@
 body{
     margin: 0;
     padding: 0;
-    background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(../images/background.jpg);
+    background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("../images/background.jpg");
     min-height: 100px;
     font-family: "montserrat", sans-serif;
 }
