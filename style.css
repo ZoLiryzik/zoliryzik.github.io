@@ -1,17 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Arimo');
-
-body{
-    margin: 0;
-    padding: 0;
-    background: rgba(255,255,255,.5);
-    background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("../images/background.png");
-    color: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url("../images/background.png");
-    font-family: "montserrat", sans-serif;
 .top-menu {
   background: rgba(255,255,255,.5);
   box-shadow: 3px 0 7px rgba(0,0,0,.3);
   padding: 20px;
-		background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(https://zoliryzik.github.io/images/background.png);
+		background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(https://zoliryzik.tk/images/background.jpg);
 	color: #fff;
 	font-family: sans-serif;
 	background-size: cover;
@@ -24,7 +16,7 @@ body{
 }
 .navbar-logo {
 	display: inline-block;
-		background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(images/background.png);
+		background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(images/background.jpg);
 	color: #fff;
 	font-family: sans-serif;
 	background-size: cover;
@@ -90,14 +82,14 @@ body{
 }
 /*фон*/
 body {
-	background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(images/background.png);
+	background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(images/background.jpg);
 	color: #fff;
 	font-family: sans-serif;
 	background-size: cover;
 	background-attachment: fixed;
 }
 .menu-main {
-	background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(images/background.png);
+	background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(images/background.jpg);
 	color: #fff;
 	font-family: sans-serif;
 	background-size: cover;
