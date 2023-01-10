@@ -1,5 +1,5 @@
 /*
-THIS CODE BY LWJerri#3290
+THIS CODE BY ZoLiryzik#0120
 */
 const boxOwners = document.getElementById("owners_list");
 /*
