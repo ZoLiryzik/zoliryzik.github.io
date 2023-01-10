@@ -1,6 +1,6 @@
 body {
 	background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(https://zoliryzik.tk/images/background.png);
-	color: #fff;
+	color: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(https://zoliryzik.tk/images/background.png);
 	font-family: sans-serif;
 	background-size: cover;
 	background-attachment: fixed;
