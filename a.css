@@ -92,6 +92,6 @@ input:checked + label {
     }
 
     input:checked + label {
-        border-bottom: 1px solid #9278aa;
+        border-bottom: 1px solid #34da37;
     }
 }
