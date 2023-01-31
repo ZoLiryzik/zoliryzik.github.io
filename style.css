@@ -82,14 +82,14 @@
 }
 /*фон*/
 body {
-	background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(images/background.png);
+	background: linear-gradient(to right, #52eb13 0%, #52eb13 100%);
 	color: #fff;
 	font-family: sans-serif;
 	background-size: cover;
 	background-attachment: fixed;
 }
 .menu-main {
-	background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(images/background.png);
+	background: linear-gradient(to right, #52eb13 0%, #52eb13 100%);
 	color: #fff;
 	font-family: sans-serif;
 	background-size: cover;
