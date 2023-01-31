@@ -3,7 +3,7 @@
   background: rgba(255,255,255,.5);
   box-shadow: 3px 0 7px rgba(0,0,0,.3);
   padding: 20px;
-		background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(images/background.png);
+		background: linear-gradient(to right, #52eb13 0%, #52eb13 100%);
 	color: #fff;
 	font-family: sans-serif;
 	background-size: cover;
@@ -16,7 +16,7 @@
 }
 .navbar-logo {
 	display: inline-block;
-		background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(images/background.png);
+		background: linear-gradient(to right, #52eb13 0%, #52eb13 100%);
 	color: #fff;
 	font-family: sans-serif;
 	background-size: cover;
