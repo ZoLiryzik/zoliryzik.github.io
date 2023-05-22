@@ -9,6 +9,13 @@
 	background-size: cover;
 	background-attachment: fixed;
 }
+buttonup {
+width:88px; 
+height:118px;
+position:fixed;
+bottom:20px;
+right:50px;
+}
 .top-menu:after {
   content: "";
   display: table;
