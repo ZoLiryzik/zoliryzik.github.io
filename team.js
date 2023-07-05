@@ -12,7 +12,7 @@ const owners = [
     {
         "id": "1044668723195285558",
         "post": "Тот самый",
-        "GHURL": "https://zoliryzik.github.io/"
+        "GHURL": "https://zoliryzik.github.io/developer/bio"
     }
 ]
 
