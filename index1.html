@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<link rel = "shortcut icon" href = "https://zoliryzik.tk/zoliryzik.png">
+<meta property="og:title" content="ZoLiryzik Community  - Дискорд сервер лично для тебя!">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="description" content="ZoLiryzik Community - Дискорд сервер лично для тебя!">
+<meta name="keywords" content="discord, server, дискорд, сервер, проект">
+<link rel = "shortcut icon" href = "https://zoliryzik.tk/zoliryzik.png">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>ZoLiryzik Community</title>
+    <link href="https://zoliryzik.tk/style.css" rel="stylesheet" type="text/css" />
+    <meta name="mailru-domain" content="S1TNSWNzYLeWcnaW" />
+  </head>
+    <nav class="top-menu">
+  <a class="navbar-logo" href="#"><img src= "https://zoliryzik.tk/zoliryzik.png"></a>
+  <ul class="menu-main">
+    <li><a href="#">Главная</a></li>
+    <li><a href="https://zoliryzik.tk/aboutus/">О нас</a></li>
+    <li><a href="https://zoliryzik.tk/news/">Новости</a></li>
+        <li><a href="/selection">Опросы</a></li>
+  </ul>
+
+</nav>
+<style>
+  .tabs {
+    font-size: 0;
+  }
+
+  .tabs>input[type="radio"] {
+    display: none;
+  }
+
+  .tabs>div {
+    /* скрыть контент по умолчанию */
+    display: none;
+    border: 1px solid #e0e0e0;
+    padding: 10px 15px;
+    font-size: 16px;
+  }
+
+  /* отобразить контент, связанный с вабранной радиокнопкой (input type="radio") */
+  #tab-btn-1:checked~#content-1,
+  #tab-btn-2:checked~#content-2,
+  #tab-btn-3:checked~#content-3 {
+    display: block;
+  }
+
+  .tabs>label {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    background-color: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    padding: 2px 8px;
+    font-size: 16px;
+    line-height: 1.5;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+    cursor: pointer;
+    position: relative;
+    top: 1px;
+  }
+
+  .tabs>label:not(:first-of-type) {
+    border-left: none;
+  }
+
+  .tabs>input[type="radio"]:checked+label {
+    background-color: #fff;
+    border-bottom: 1px solid #fff;
+  }
+</style>
+
+<div class="tabs">
+  <input type="radio" name="tab-btn" id="tab-btn-1" value="" checked>
+  <label for="tab-btn-1">Вкладка 1</label>
+  <input type="radio" name="tab-btn" id="tab-btn-2" value="">
+  <label for="tab-btn-2">Вкладка 2</label>
+  <input type="radio" name="tab-btn" id="tab-btn-3" value="">
+  <label for="tab-btn-3">Вкладка 3</label>
+  <div id="content-1">
+    Содержимое 1...
+  </div>
+  <div id="content-2">
+    Содержимое 2...
+  </div>
+  <div id="content-3">
+    Содержимое 3...
+  </div>
+</div>
+
+
+  
+</html>
+
