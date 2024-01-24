@@ -80,6 +80,7 @@ text-transform: uppercase;
 
 .spoiler_title {
     cursor: pointer;
+    color: black;
 }
 
 .spoiler_title, .spoiler_content {
