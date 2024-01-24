@@ -1,132 +1,95 @@
-*{
-margin:0px;
-padding:0px;
-}
-
-html {
-	box-sizing: border-box;
-}
-
-*,
-*:before,
-*:after {
-	/* Inherit box-sizing to make it easier to change the property for components that leverage other behavior; see http://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/ */
-	box-sizing: inherit;
-}
-
-body{
-background:#eeeeee;
-font-family: arial;
-}
-
-p {
-    font: 18px/33px arial;
-    color: #555;
-}
-
-a{
-text-decoration:none;
-    color: #555;
-}
-
-#wrapper{
-width:100%;
-max-width: 1000px;
-margin:0 auto;
-position:relative;
-padding: 80px 0;
-}
-
-#header{
-width:100%;
-max-width: 1000px;
-margin:0 auto 70px;
-background:#eeeeee;
-height:85px;
-}
-
-#header h1{
-font:30px verdana;
-text-align:center;
-color:#222;
-padding-top: 22px;
-text-shadow: 0 0 2px #bdbdbd;
-text-transform: uppercase;
-}
-
-.wrap_line {
-	display: flex;
-	align-items: center;
-	flex-wrap: wrap;
-	justify-content: center;
-}
-
-.item_line {
-  width: 80%;
-  padding: 1rem;
-}
-
-
-/*  */
-
 .spoiler_wrap {
     position: relative;
-    margin-bottom: 20px;
-    font-size: 22px;
-    background: #fff;
-    border-radius: 5px;
-    height: fit-content;
+    min-height: 30px;
+    margin-bottom: 15px;
 }
 
 .spoiler_title {
-    cursor: pointer;
-    color: black;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    height: 30px;
+    z-index: 1;
+        font-weight: 600;
+        font-size: 18px;
 }
 
-.spoiler_title, .spoiler_content {
-    padding: 30px 26px;
+.toggle:checked~.spoiler_title,
+.spoiler_title:hover {
+    color: #EA2816;
+}
+
+.icon {
+    height: 18px;
+    position: absolute;
+    width: 18px;
+    right: 0;
+    top: 11px;
+    z-index: 2;
+}
+
+.icon:before,
+.icon:after {
+    background: #333;
+    content: '';
+    height: 4px;
+    right: 0;
+    position: absolute;
+    top: 0;
+    width: 18px;
+    transition: transform 500ms ease;
+}
+
+.toggle:checked~.icon:before,
+.toggle:checked~.icon:after {
+    background: #EA2816;
+}
+
+.toggle:not(:checked)~.icon:before {
+    transform: rotate(180deg);
+}
+
+.toggle:not(:checked)~.icon:after {
+    transform: rotate(90deg);
+}
+
+.toggle {
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    z-index: 3;
+}
+
+.border {
+    height: 40px;
+    border-bottom: 1px solid #333;
+}
+
+.toggle:checked~.border {
+    border-bottom: 1px solid #EA2816;
 }
 
 .spoiler_content {
-    padding-top: 0;
-    padding-bottom: 10px;
-    transition: 0.15s ease-out;
-    height: auto;
-    max-height: 0px;
+    padding: 15px 0 0 0;
+    height: 0;
     overflow: hidden;
-    margin-top: -10px;
+    z-index: -1;
+    position: relative;
     opacity: 0;
-    font-size: 14px;
-    color: #444;
+    transition: .4s ease;
 }
 
-.spoiler_content p {
-    font-size: 16px;
-    margin: 20px 0;
-    color: #333;
-	line-height: 1.4;
-}
-
-.spoiler_content.open {
-    margin-top: 0;
-    max-height: 100%;
+.toggle:checked~.spoiler_content {
+    height: auto;
     opacity: 1;
+    z-index: 2;
 }
-
-
-.spoiler_title .spoiler_arrow {
-    display: inline-block;
-    margin-left: 15px;
-    font-size: 20px;
-    transition: all .1s;
-    vertical-align: middle;
-}
-
-.spoiler_title .spoiler_arrow svg {
-    fill: red;
-    width: 13px;
-}
-
-.spoiler_title .spoiler_arrow.open {
-    transform: rotate(180deg);
+.spoiler_content>p {
+    margin-bottom: 20px;
 }
