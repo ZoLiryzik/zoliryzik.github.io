@@ -34,64 +34,45 @@
 	
 			<!-- Еще блоки -->
 	
-<div class="spoiler_wrap">
-    <input type="checkbox" class="toggle">
-    <div class="spoiler_title" id="1">Что такое спойлер?</div>
-    <div class="icon"></div>
-    <div class="border"></div>
-    <div class="spoiler_content">
-        <p>текст</p>
+<div class="header">
+        <h1>Новости</h1>
     </div>
-</div>
-	<!-- Еще блоки -->
-			<!-- Еще блоки -->
-	
-<div class="spoiler_wrap">
-    <input type="checkbox" class="toggle">
-    <div class="spoiler_title" id="2">Что такое спойлер?</div>
-    <div class="icon"></div>
-    <div class="border"></div>
-    <div class="spoiler_content" >
-        <p>текст</p>
+    <div class="container">
+        <!-- Поисковая строка -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Введите ключевое слово для поиска..." onkeyup="searchNews()">
+        </div>
+        <!-- Новостные блоки -->
+        <div class="news-item">
+            <img src="image1.jpg" alt="Новость 1">
+            <h2>Заголовок новости 1</h2>
+            <p>Описание новости 1. Lorem ipsum dolor sit amet, consectetur ZoLiryzik adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+        </div>
+        <div class="news-item">
+            <img src="image2.jpg" alt="Новость 2">
+            <h2>Заголовок новости 2</h2>
+            <p>Описание новости 2. Lorem ipsum dolor sit amet, consectetur Vix adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+        </div>
+        <!-- Добавьте больше новостных блоков по мере необходимости -->
     </div>
-</div>
-	<!-- Еще блоки -->
-				<!-- Еще блоки -->
-	
-<div class="spoiler_wrap">
-    <input type="checkbox" class="toggle">
-    <div class="spoiler_title" id="3">Что такое спойлер?</div>
-    <div class="icon"></div>
-    <div class="border"></div>
-    <div class="spoiler_content">
-        <p>текст</p>
+    <div class="footer">
+        <p>&copy; 2025 Новости. Все права защищены.</p>
     </div>
-</div>
-	<!-- Еще блоки -->
-				<!-- Еще блоки -->
-	
-<div class="spoiler_wrap">
-    <input type="checkbox" class="toggle">
-    <div class="spoiler_title" id="3">Что такое спойлер?</div>
-    <div class="icon"></div>
-    <div class="border"></div>
-    <div class="spoiler_content">
-        <p>текст</p>
-    </div>
-</div>
-	<!-- Еще блоки -->
-				<!-- Еще блоки -->
-	
-<div class="spoiler_wrap" class="#1">
-    <input type="checkbox" class="toggle" class="1">
-    <div class="spoiler_title" id="1">Что такое спойлер?</div>
-    <div class="icon" class="1"></div>
-    <div class="border" class="1"></div>
-    <div class="spoiler_content" id="a" >
-        <p>текст</p>
-    </div>
-</div>
-	<!-- Еще блоки -->
-<p class="#11">f</p>
+
+    <script>
+        function searchNews() {
+            var input = document.getElementById('searchInput').value.toLowerCase();
+            var newsItems = document.getElementsByClassName('news-item');
+
+            for (var i = 0; i < newsItems.length; i++) {
+                var itemText = newsItems[i].textContent.toLowerCase();
+                if (itemText.includes(input)) {
+                    newsItems[i].style.display = "";
+                } else {
+                    newsItems[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 </body>
 </html>
