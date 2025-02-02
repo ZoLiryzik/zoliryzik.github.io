@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новости</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+        }
+        .news-item {
+            background-color: #fff;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .news-item img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+        .news-item h2 {
+            margin-top: 0;
+        }
+        .news-item p {
+            line-height: 1.6;
+        }
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Новости</h1>
+    </div>
+    <div class="container">
+        <!-- Поисковая строка -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Введите ключевое слово для поиска..." onkeyup="searchNews()">
+        </div>
+        <!-- Новостные блоки -->
+        <div class="news-item">
+            <img src="image1.jpg" alt="Новость 1">
+            <h2>Заголовок новости 1</h2>
+            <p>Описание новости 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+        </div>
+        <div class="news-item">
+            <img src="image2.jpg" alt="Новость 2">
+            <h2>Заголовок новости 2</h2>
+            <p>Описание новости 2. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+        </div>
+        <!-- Добавьте больше новостных блоков по мере необходимости -->
+    </div>
+    <div class="footer">
+        <p>&copy; 2025 Новости. Все права защищены.</p>
+    </div>
+
+    <script>
+        function searchNews() {
+            // Получаем значение из поисковой строки
+            var input = document.getElementById('searchInput');
+            var filter = input.value.toLowerCase();
+            var newsItems = document.getElementsByClassName('news-item');
+
+            // Проходим по всем новостным блокам
+            for (var i = 0; i < newsItems.length; i++) {
+                var h2 = newsItems[i].getElementsByTagName('h2')[0];
+                var p = newsItems[i].getElementsByTagName('p')[0];
+
+                // Проверяем, содержит ли заголовок или описание ключевое слово
+                if (h2.innerHTML.toLowerCase().indexOf(filter) > -1 || p.innerHTML.toLowerCase().indexOf(filter) > -1) {
+                    newsItems[i].style.display = "";
+                } else {
+                    newsItems[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
