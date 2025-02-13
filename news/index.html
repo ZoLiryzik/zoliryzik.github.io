@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZoLiryzik Community - Новости</title>
+    <link href="https://zoliryzik.github.io/style.css" rel="stylesheet" type="text/css" />
+    <link href="styles.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <nav class="top-menu">
+        <a class="navbar-logo" href="index.html"><img src="https://zoliryzik.github.io/zoliryzik.png" alt="Logo"></a>
+        <ul class="menu-main">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="aboutus.html">О нас</a></li>
+            <li><a href="news.html">Новости</a></li>
+        </ul>
+    </nav>
+
+    <div class="header">
+        <h1>Новости</h1>
+    </div>
+    <div class="container">
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Введите ключевое слово для поиска..." onkeyup="searchNews()">
+        </div>
+        <div id="newsContainer"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
