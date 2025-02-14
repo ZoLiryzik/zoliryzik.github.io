@@ -8,7 +8,7 @@ async function loadNews() {
         const newsItem = document.createElement('div');
         newsItem.classList.add('news-item');
         newsItem.innerHTML = `
-            <h2>${item.title}</h2>
+            <h2 id=${item.id}>${item.title}</h2>
             <p>${item.description}</p>
         `;
         newsContainer.appendChild(newsItem);
