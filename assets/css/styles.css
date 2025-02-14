@@ -3,7 +3,7 @@
   background: rgba(255,255,255,.5);
   box-shadow: 3px 0 7px rgba(0,0,0,.3);
   padding: 20px;
-		background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(https://zoliryzik.github.io/zoliryzik/assets/img/banner/background.png);
+		background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(../assets/img/banner/background.png);
 	color: #fff;
 	font-family: sans-serif;
 	background-size: cover;
@@ -17,7 +17,7 @@
 }
 .navbar-logo {
 	display: inline-block;
-		background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(https://zoliryzik.github.io/zoliryzik/assets/img/banner/background.png);
+		background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(../assets/img/banner/background.png);
 	color: #fff;
 	font-family: sans-serif;
 	background-size: cover;
@@ -83,14 +83,14 @@
 }
 /*фон*/
 body {
-	background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(https://zoliryzik.github.io/zoliryzik/assets/img/banner/background.png);
+	background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(../assets/img/banner/background.png);
 	color: #fff;
 	font-family: sans-serif;
 	background-size: cover;
 	background-attachment: fixed;
 }
 .menu-main {
-	background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(https://zoliryzik.github.io/zoliryzik/assets/img/banner/background.png);
+	background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(../assets/img/banner/background.png);
 	color: #fff;
 	font-family: sans-serif;
 	background-size: cover;
