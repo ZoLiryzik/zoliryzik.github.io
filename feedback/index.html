@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отзывы</title>
+</head>
+<body>
+    <h1>Оставьте ваш отзыв</h1>
+    <form id="feedback-form">
+        <label for="name">Имя:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="feedback">Отзыв:</label><br>
+        <textarea id="feedback" name="feedback" required></textarea><br><br>
+        <button type="submit">Отправить</button>
+    </form>
+    <h2>Отзывы</h2>
+    <ul id="feedback-list"></ul>
+    <script src="script.js"></script>
+</body>
+</html>
