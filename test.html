@@ -2,34 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form</title>
+    <title>Feedback Page</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="https://api.github.com/repos/ZoLiryzik/zoliryzik.github.io/dispatches" method="POST" id="dataForm">
-        <input type="hidden" name="event_type" value="form_submitted">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name">
-        <button type="submit">Submit</button>
+    <h1>Отзывы</h1>
+    <form id="feedback-form">
+        <input type="text" id="name" placeholder="Имя" required>
+        <textarea id="message" placeholder="Отзыв" required></textarea>
+        <button type="submit">Отправить</button>
     </form>
-    <script>
-        document.getElementById('dataForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const data = {
-                event_type: 'form_submitted',
-                client_payload: {
-                    name: document.getElementById('name').value
-                }
-            };
-            fetch(this.action, {
-                method: this.method,
-                headers: {
-                    'Accept': 'application/vnd.github.v3+json',
-                    'Authorization': 'token ваш-токен'
-                },
-                body: JSON.stringify(data)
-            });
-        });
-    </script>
+    <h2>Все отзывы</h2>
+    <div id="feedbacks"></div>
+    <script src="script.js"></script>
 </body>
 </html>
