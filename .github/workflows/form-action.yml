@@ -1,0 +1,27 @@
+name: Form Action
+
+on:
+  repository_dispatch:
+    types: [form_submitted]
+
+jobs:
+  save-data:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Save form data
+      run: |
+        echo "${{ github.event.client_payload.name }}" >> form-data.txt
+
+    - name: Commit changes
+      run: |
+        git config --global user.email "your-email@example.com"
+        git config --global user.name "GitHub Actions"
+        git add form-data.txt
+        git commit -m "Add form data"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
