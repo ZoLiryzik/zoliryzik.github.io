@@ -1,36 +1,24 @@
 document.getElementById('feedback-form').addEventListener('submit', function(event) {
     event.preventDefault();
-    
+
     const name = document.getElementById('name').value;
     const message = document.getElementById('message').value;
-    
-    fetch('feedback.json')
-        .then(response => response.json())
-        .then(data => {
-            data.push({ name, message });
-            fetch('feedback.json', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-            displayFeedbacks();
-        });
+
+    const feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
+    feedbacks.push({ name, message });
+    localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+    displayFeedbacks();
 });
 
 function displayFeedbacks() {
-    fetch('feedback.json')
-        .then(response => response.json())
-        .then(data => {
-            const feedbackContainer = document.getElementById('feedbacks');
-            feedbackContainer.innerHTML = '';
-            data.forEach(feedback => {
-                const feedbackElement = document.createElement('div');
-                feedbackElement.innerHTML = `<strong>${feedback.name}</strong>: ${feedback.message}`;
-                feedbackContainer.appendChild(feedbackElement);
-            });
-        });
+    const feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
+    const feedbackContainer = document.getElementById('feedbacks');
+    feedbackContainer.innerHTML = '';
+    feedbacks.forEach(feedback => {
+        const feedbackElement = document.createElement('div');
+        feedbackElement.innerHTML = `<strong>${feedback.name}</strong>: ${feedback.message}`;
+        feedbackContainer.appendChild(feedbackElement);
+    });
 }
 
 displayFeedbacks();
