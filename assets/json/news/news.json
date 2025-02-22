@@ -13,6 +13,11 @@
       "title": "Заголовок новости 3",
       "description": "Описание новости 3. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.",
       "id": "2"
+    },
+    {
+      "title": "Заголовок новости 4",
+      "description": "Описание новости 4. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.",
+      "id": "2"
     }
   ]
   
