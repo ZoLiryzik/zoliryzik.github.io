@@ -18,7 +18,7 @@
     </form>
 
     <script>
-        const webhookUrl = '${{ secrets.SECRET_ENV_VAR }}';
+        const webhookUrl = '${{ secrets.SECRET_ENV_WEB }}';
 
         document.getElementById('feedbackForm').addEventListener('submit', function(event) {
             event.preventDefault();
