@@ -4,14 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Отзывы</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+    </style>
 </head>
 <body>
     <h1>Отзывы</h1>
     <form id="reviewForm">
-        <label for="name">Имя:</label><br>
-        <input type="text" id="name" name="name" required><br>
-        <label for="review">Отзыв:</label><br>
-        <textarea id="review" name="review" required></textarea><br>
+        <label for="name">Имя:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="review">Отзыв:</label>
+        <textarea id="review" name="review" required></textarea>
         <button type="submit">Отправить</button>
     </form>
     <div id="response"></div>
@@ -34,6 +57,7 @@
             })
             .catch(error => {
                 console.error('Ошибка:', error);
+                document.getElementById('response').innerText = 'Произошла ошибка. Попробуйте еще раз.';
             });
         });
     </script>
