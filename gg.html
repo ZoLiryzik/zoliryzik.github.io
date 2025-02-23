@@ -18,7 +18,7 @@
     </form>
 
     <script>
-        const webhookUrl = 'https://discord.com/api/webhooks/1328375914324561970/KStv46RcDsd1iXZSLajH6wEfMtD5hI7_2RFEi9O9BTSuReJbok2NGK_WhdvDZMrr-DNS';
+        const webhookUrl = '${{ secrets.SECRET_ENV_VAR }}';
 
         document.getElementById('feedbackForm').addEventListener('submit', function(event) {
             event.preventDefault();
