@@ -20,7 +20,7 @@
     <script>
         // Загружаем переменные окружения
         fetch('/env').then(response => response.json()).then(env => {
-            const webhookUrl = env.WEBHOOK_URL;
+            const webhookUrl = env.WEB;
 
             document.getElementById('feedbackForm').addEventListener('submit', function(event) {
                 event.preventDefault();
