@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма отзыва</title>
+</head>
+<body>
+    <h1>Отправьте свой отзыв</h1>
+    <form id="feedbackForm">
+        <label for="name">Имя:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+        <label for="feedback">Отзыв:</label>
+        <textarea id="feedback" name="feedback" required></textarea>
+        <br>
+        <button type="submit">Отправить</button>
+    </form>
+
+    <script>
+        // Загружаем переменные окружения
+        fetch('/env').then(response => response.json()).then(env => {
+            const webhookUrl = env.WEBHOOK_URL;
+
+            document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const name = document.getElementById('name').value;
+                const feedback = document.getElementById('feedback').value;
+
+                const embed = {
+                    title: "Новый отзыв",
+                    description: feedback,
+                    color: 7506394,
+                    fields: [
+                        {
+                            name: "Имя",
+                            value: name
+                        }
+                    ],
+                    timestamp: new Date()
+                };
+
+                const data = {
+                    embeds: [embed]
+                };
+
+                fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }).then(response => {
+                    if (response.ok) {
+                        alert('Ваш отзыв отправлен!');
+                    } else {
+                        alert('Произошла ошибка при отправке отзыва.');
+                    }
+                }).catch(error => {
+                    console.error('Ошибка:', error);
+                    alert('Произошла ошибка при отправке отзыва.');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
