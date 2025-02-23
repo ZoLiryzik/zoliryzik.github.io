@@ -7,4 +7,4 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Use secret
-      run: echo ${{ secrets.MY_SECRET }}
+      run: echo ${{ secrets.WEB }}
