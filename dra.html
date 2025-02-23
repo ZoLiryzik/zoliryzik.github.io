@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма отзыва</title>
+</head>
+<body>
+    <h1>Отправьте свой отзыв</h1>
+    <form id="feedbackForm">
+        <label for="name">Имя:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+        <label for="feedback">Отзыв:</label>
+        <textarea id="feedback" name="feedback" required></textarea>
+        <br>
+        <button type="submit">Отправить</button>
+    </form>
+
+    <script>
+        const repoOwner = 'ZoLiryzik';
+        const repoName = 'zoliryzik.github.io';
+        const apiToken = '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';
+
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const feedback = document.getElementById('feedback').value;
+            const fileName = `feedback_${Date.now()}.json`;
+            const fileContent = {
+                name: name,
+                feedback: feedback,
+                timestamp: new Date().toISOString()
+            };
+
+            const data = {
+                message: 'Добавлен новый отзыв',
+                content: btoa(JSON.stringify(fileContent))
+            };
+
+            fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${fileName}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${apiToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(response => {
+                if (response.ok) {
+                    alert('Ваш отзыв отправлен!');
+                } else {
+                    alert('Произошла ошибка при отправке отзыва.');
+                }
+            }).catch(error => {
+                console.error('Ошибка:', error);
+                alert('Произошла ошибка при отправке отзыва.');
+            });
+        });
+    </script>
+</body>
+</html>
