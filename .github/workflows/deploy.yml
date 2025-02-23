@@ -28,5 +28,5 @@ jobs:
       env:
         WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
       run: |
-        echo "WEBHOOK_URL=${{ secrets.WEBHOOK_URL }}" > .env
+        echo "WEBHOOK_URL=${{ secrets.WEB }}" > .env
         npm start
