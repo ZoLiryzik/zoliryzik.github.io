@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Отзыв</title>
+</head>
+<body>
+    <h2>Оставьте отзыв</h2>
+    
+    <!-- Первая форма -->
+    <form id="reviewForm1">
+        <h3>Форма 1: Отзыв о продукте</h3>
+        <label for="name1">Ваше имя:</label>
+        <input type="text" id="name1" name="name1" required><br><br>
+        <label for="review1">Ваш отзыв:</label><br>
+        <textarea id="review1" name="review1" rows="4" cols="50" required></textarea><br><br>
+        <button type="submit">Отправить</button>
+    </form>
+    
+    <!-- Вторая форма -->
+    <form id="reviewForm2">
+        <h3>Форма 2: Комментарий</h3>
+        <label for="name2">Ваше имя:</label>
+        <input type="text" id="name2" name="name2" required><br><br>
+        <label for="comment2">Ваш комментарий:</label><br>
+        <textarea id="comment2" name="comment2" rows="4" cols="50" required></textarea><br><br>
+        <button type="submit">Отправить</button>
+    </form>
+
+    <script>
+        async function sendReview(formId, webhookURL, isComment) {
+            const form = document.getElementById(formId);
+            const name = form.querySelector('input[type="text"]').value;
+            const reviewOrComment = form.querySelector('textarea').value;
+            
+            const payload = {
+                embeds: [{
+                    title: isComment ? 'Новый комментарий' : 'Новый отзыв',
+                    color: isComment ? 16776960 : 3447003, // Цветовой код в формате hex
+                    fields: [
+                        {
+                            name: 'Имя',
+                            value: name
+                        },
+                        {
+                            name: isComment ? 'Комментарий' : 'Отзыв',
+                            value: reviewOrComment
+                        }
+                    ],
+                    timestamp: new Date()
+                }]
+            };
+            
+            try {
+                const response = await fetch(webhookURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (response.ok) {
+                    alert(isComment ? 'Комментарий успешно отправлен!' : 'Отзыв успешно отправлен!');
+                } else {
+                    alert('Произошла ошибка при отправке.');
+                }
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('Произошла ошибка при отправке.');
+            }
+        }
+
+        document.getElementById('reviewForm1').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const webhookURL1 = 'YOUR_DISCORD_WEBHOOK_URL_1';  // Замените YOUR_DISCORD_WEBHOOK_URL_1 на ваш первый Webhook URL
+            sendReview('reviewForm1', webhookURL1, false);
+        });
+
+        document.getElementById('reviewForm2').addEventListener('submit', function(event
