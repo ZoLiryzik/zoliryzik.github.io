@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Формы для отправки в Discord</title>
+</head>
+<body>
+    <h1>Формы для отправки данных в Discord</h1>
+    
+    <!-- Форма 1 -->
+    <h2>Форма 1</h2>
+    <form id="form1">
+        <label for="username1">Имя пользователя:</label>
+        <input type="text" id="username1" name="username" required>
+        
+        <label for="message1">Сообщение:</label>
+        <textarea id="message1" name="message" required></textarea>
+        
+        <button type="submit">Отправить</button>
+    </form>
+
+    <!-- Форма 2 -->
+    <h2>Форма 2</h2>
+    <form id="form2">
+        <label for="username2">Имя пользователя:</label>
+        <input type="text" id="username2" name="username" required>
+        
+        <label for="message2">Сообщение:</label>
+        <textarea id="message2" name="message" required></textarea>
+        
+        <button type="submit">Отправить</button>
+    </form>
+
+    <!-- Форма 3 -->
+    <h2>Форма 3</h2>
+    <form id="form3">
+        <label for="username3">Имя пользователя:</label>
+        <input type="text" id="username3" name="username" required>
+        
+        <label for="message3">Сообщение:</label>
+        <textarea id="message3" name="message" required></textarea>
+        
+        <button type="submit">Отправить</button>
+    </form>
+
+    <!-- Форма 4 -->
+    <h2>Форма 4</h2>
+    <form id="form4">
+        <label for="username4">Имя пользователя:</label>
+        <input type="text" id="username4" name="username" required>
+        
+        <label for="message4">Сообщение:</label>
+        <textarea id="message4" name="message" required></textarea>
+        
+        <button type="submit">Отправить</button>
+    </form>
+
+    <!-- Форма 5 -->
+    <h2>Форма 5</h2>
+    <form id="form5">
+        <label for="username5">Имя пользователя:</label>
+        <input type="text" id="username5" name="username" required>
+        
+        <label for="message5">Сообщение:</label>
+        <textarea id="message5" name="message" required></textarea>
+        
+        <button type="submit">Отправить</button>
+    </form>
+
+    <script>
+        const forms = [
+            {id: 'form1', webhook: 'YOUR_DISCORD_WEBHOOK_URL_1'},
+            {id: 'form2', webhook: 'YOUR_DISCORD_WEBHOOK_URL_2'},
+            {id: 'form3', webhook: 'YOUR_DISCORD_WEBHOOK_URL_3'},
+            {id: 'form4', webhook: 'YOUR_DISCORD_WEBHOOK_URL_4'},
+            {id: 'form5', webhook: 'YOUR_DISCORD_WEBHOOK_URL_5'}
+        ];
+
+        forms.forEach(({id, webhook}) => {
+            document.getElementById(id).addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const data = {
+                    username: event.target.username.value,
+                    content: event.target.message.value
+                };
+                
+                fetch(webhook, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Сообщение отправлено в Discord!');
+                    } else {
+                        alert('Ошибка при отправке сообщения.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                    alert('Ошибка при отправке сообщения.');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
