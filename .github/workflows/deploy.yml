@@ -6,5 +6,5 @@
              uses: actions/checkout@v2
            - name: Build and Deploy
              run: |
-               echo "window.__APP_CONFIG__ = { MY_SECRET: '${{ secrets.MY_SECRET }}' };" > ./public/config.js
+               echo "window.__APP_CONFIG__ = { MY_SECRET: '${{ secrets.WEB }}' };" > ./public/config.js
      
