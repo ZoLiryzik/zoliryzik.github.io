@@ -3,16 +3,28 @@
      <head>
        <meta charset="UTF-8">
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       <title>Display Secret</title>
+       <title>Discord Webhook Example</title>
      </head>
      <body>
-       <h1>Secret Value:</h1>
-       <p id="secret-value"></p>
+       <h1>Webhook Integration</h1>
+       <button id="sendWebhook">Send Webhook</button>
        
-       <script src="config.js"></script>
        <script>
-         const secretValue = window.__APP_CONFIG__.MY_SECRET;
-         document.getElementById('secret-value').innerText = secretValue;
+         const config = {
+           DISCORD_WEBHOOK_URL: 'your-webhook-url'
+         };
+         
+         document.getElementById('sendWebhook').addEventListener('click', () => {
+           fetch(config.DISCORD_WEBHOOK_URL, {
+             method: 'POST',
+             headers: {
+               'Content-Type': 'application/json'
+             },
+             body: JSON.stringify({ content: 'Hello from your webpage!' })
+           })
+           .then(response => response.ok ? console.log('Webhook sent successfully') : console.error('Error sending webhook'))
+           .catch(error => console.error('Error:', error));
+         });
        </script>
      </body>
      </html>
