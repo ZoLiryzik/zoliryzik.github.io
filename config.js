@@ -1,3 +1,3 @@
-     const apiKey = window.__APP_CONFIG__.API_KEY;
+     const apiKey = window.__APP_CONFIG__.MY_SECRET;
      console.log('API Key:', apiKey);
      
