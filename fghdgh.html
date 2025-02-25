@@ -1,0 +1,19 @@
+     <!DOCTYPE html>
+     <html lang="en">
+     <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>Display Secret</title>
+     </head>
+     <body>
+       <h1>Secret Value:</h1>
+       <p id="secret-value"></p>
+       
+       <script src="config.js"></script>
+       <script>
+         const secretValue = window.__APP_CONFIG__.MY_SECRET;
+         document.getElementById('secret-value').innerText = secretValue;
+       </script>
+     </body>
+     </html>
+     
