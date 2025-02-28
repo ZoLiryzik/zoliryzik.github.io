@@ -1,0 +1,10 @@
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Use secret in script
+        run: node script.js
+        env:
+          MY_SECRET: ${{ secrets.MY_SECRET }}
