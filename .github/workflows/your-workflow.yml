@@ -7,4 +7,4 @@ jobs:
       - name: Use secret in script
         run: node script.js
         env:
-          MY_SECRET: ${{ secrets.MY_SECRET }}
+          MY_SECRET: ${{ secrets.DISCORD_WEBHOOK_URL }}
