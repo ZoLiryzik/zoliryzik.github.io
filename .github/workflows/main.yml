@@ -1,10 +1,21 @@
-name: Example Workflow
-on: [push]
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # замените на вашу основную ветку
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Use secret
-      run: echo ${{ secrets.WEB }}
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Build and deploy
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          echo "const webhookURL = '${DISCORD_WEBHOOK_URL}';" > webhook.js
+          echo "Теперь файл webhook.js содержит URL вебхука"
