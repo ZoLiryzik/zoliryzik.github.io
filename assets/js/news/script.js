@@ -10,6 +10,7 @@ async function loadNews() {
         newsItem.innerHTML = `
             <h2 id=${item.id}>${item.title}</h2>
             <p>${item.description}</p>
+            <script>console.log(${item.id})</script>
         `;
         newsContainer.appendChild(newsItem);
     });
