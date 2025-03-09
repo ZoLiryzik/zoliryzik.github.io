@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Форма для отправки данных на Discord Webhook</title>
+    <script src="script.js"></script>
+</head>
+<body>
+    <h1>Отправка данных на Discord Webhook</h1>
+    <form onsubmit="sendToDiscord(); return false;">
+        <label for="username">Имя пользователя:</label>
+        <input type="text" id="username" required><br><br>
+        <label for="message">Сообщение:</label>
+        <input type="text" id="message" required><br><br>
+        <input type="submit" value="Отправить">
+    </form>
+</body>
+</html>
