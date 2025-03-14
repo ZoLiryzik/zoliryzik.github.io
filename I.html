@@ -75,9 +75,6 @@
     </style>
 </head>
 <body>
-    	<nav class="top-menu">
-  <a class="navbar-logo" href="/"><img src="/assets/img/icon/zoliryzik.png"></a>
-</nav>
     <div class="menu" id="menu">
         <span class="close-button" onclick="toggleMenu()">×</span>
         <ul>
@@ -86,7 +83,7 @@
             <li><a href="news">Новости</a></li>
         </ul>
     </div>
-    <span class="menu-button" onclick="toggleMenu()">☰</span>
+    <span class="menu-button" id="menuButton" onclick="toggleMenu()">☰</span>
 
     <h1><center>ZoLiryzik Community</center></h1>
     <h2><center>Официальный сайт сервера в дискорде</center></h2>
@@ -99,10 +96,13 @@
     <script>
         function toggleMenu() {
             var menu = document.getElementById('menu');
+            var menuButton = document.getElementById('menuButton');
             if (menu.style.display === 'block') {
                 menu.style.display = 'none';
+                menuButton.style.display = 'block';
             } else {
                 menu.style.display = 'block';
+                menuButton.style.display = 'none';
             }
         }
     </script>
