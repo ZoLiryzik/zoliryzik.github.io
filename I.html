@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>ZoLiryzik Community</title>
+    <link href="assets/css/styles.css" rel="stylesheet" type="text/css" />
+    <meta name="mailru-domain" content="S1TNSWNzYLeWcnaW" />
+    <link rel="shortcut icon" href="assets/img/icon/zoliryzik.png">
+    <meta property="og:title" content="ZoLiryzik Community - Дискорд сервер лично для тебя!">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="title" content="ZoLiryzik Community">
+    <meta name="description" content="ZoLiryzik Community - Дискорд сервер лично для тебя!">
+    <meta name="keywords" content="discord, server, дискорд, сервер, проект">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .menu {
+            display: none;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: auto;
+            transition: 0.5s;
+        }
+        .menu ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            padding-top: 60px;
+        }
+        .menu ul li {
+            margin: 20px 0;
+        }
+        .menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+        }
+        .menu ul li a:hover {
+            color: #f1c40f;
+        }
+        .menu-button {
+            font-size: 30px;
+            cursor: pointer;
+        }
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu" id="menu">
+        <span class="close-button" onclick="toggleMenu()">×</span>
+        <ul>
+            <li><a href="#">Главная</a></li>
+            <li><a href="aboutus">О нас</a></li>
+            <li><a href="news">Новости</a></li>
+        </ul>
+    </div>
+    <span class="menu-button" onclick="toggleMenu()">☰</span>
+
+    <nav class="top-menu">
+        <a class="navbar-logo" href="#"><img src="assets/img/icon/zoliryzik.png"></a>
+        <ul class="menu-main">
+            <li><a href="#">Главная</a></li>
+            <li><a href="aboutus">О нас</a></li>
+            <li><a href="news">Новости</a></li>
+        </ul>
+    </nav>
+
+    <h1><center>ZoLiryzik Community</center></h1>
+    <h2><center>Официальный сайт сервера в дискорде</center></h2>
+
+    <br><h2><center>Самое новое видео</center></h2>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <br><center><iframe id="youtube_video" controls="2" frameborder="0" width="300" height="200" allowfullscreen></iframe></center>
+    <script src="assets/js/yt/video.js"></script>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById('menu');
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
