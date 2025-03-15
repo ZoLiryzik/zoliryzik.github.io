@@ -1,6 +1,6 @@
 // Загрузка новостей из JSON файла 233
 async function loadNews() {
-    const response = await fetch('../assets/json/news/news.json');
+    const response = await fetch('/assets/json/news/news.json');
     const news = await response.json();
     const newsContainer = document.getElementById('newsContainer');
 
