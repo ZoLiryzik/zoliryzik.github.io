@@ -1,32 +1,167 @@
 <!DOCTYPE html>
-<link rel = "shortcut icon" href = "/assets/img/icon/zoliryzik.png">
-<meta property="og:title" content="ZoLiryzik Community  -  О нас!">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="ZoLiryzik Community  -  О нас!">
-<meta name="keywords" content="discord, server, serverdiscord, общение,  поискдруга, дискорд, сервер, проект">
-<html>
-  <head>
+<html lang="en">
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>О нас</title>
-    <link href="/assets/css/styles.css" rel="stylesheet" type="text/css" />
-  </head>
-	<nav class="top-menu">
-  <a class="navbar-logo" href="/"><img src="/assets/img/icon/zoliryzik.png"></a>
-  <ul class="menu-main">
-    <li><a href="/">Главная</a></li>
-    <li><a href="#">О нас</a></li>
-    <li><a href="/news">Новости</a></li>
-  </ul>
-</nav>
+    <title>ZoLiryzik Community - О нас!</title>
+    <link rel="shortcut icon" href="/assets/img/icon/zoliryzik.png">
+    <meta property="og:title" content="ZoLiryzik Community - О нас!">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="ZoLiryzik Community - О нас!">
+    <meta name="keywords" content="discord, server, serverdiscord, общение, поискдруга, дискорд, сервер, проект">
+    <link href="https://zoliryzik.github.io/assets/css/styles.css" rel="stylesheet" type="text/css" />
+    <style>
+        .widget-container {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+        .widget {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+            width: 400px;
+            background-color: #2f3136;
+        }
+        .widget-header {
+            background-color: #7289da;
+            padding: 15px;
+            text-align: center;
+        }
+        .widget-header h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #ffffff;
+        }
+        .widget-body {
+            padding: 20px;
+        }
+        .member-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .member-list li {
+            display: flex;
+            align-items: center;
+            background-color: #3a3f45;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: inset 0 -2px 0 rgba(255, 255, 255, 0.1);
+            transition: transform 0.2s;
+        }
+        .member-list li:hover {
+            transform: scale(1.05);
+            background-color: #464b51;
+        }
+        .member-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .member-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .member-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        .member-status {
+            font-size: 14px;
+            color: #b9bbbe;
+        }
+    </style>
+</head>
 <body>
-<br><br>
-  <h1><center>Связь с нами</center></h1>
-  <center><a href="/support" class="shine-button">Наш дискорд</a> <a href="/developer" class="shine-button">Тот самый</a></center>
-	<br><br><br><br><br><br>
-	<center><iframe src="https://discord.com/widget?id=940706681510318141&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe></center>
+    <nav class="top-menu">
+        <a class="navbar-logo" href="/"><img src="/assets/img/icon/zoliryzik.png"></a>
+        <ul class="menu-main">
+            <li><a href="/">Главная</a></li>
+            <li><a href="#">О нас</a></li>
+            <li><a href="/news">Новости</a></li>
+        </ul>
+    </nav>
+    <h1><center>Связь с нами</center></h1>
+    <center><a href="/support" class="shine-button">Наш дискорд</a> <a href="/developer" class="shine-button">Тот самый</a></center>
+    <br><br>
+    <div class="widget-container">
+        <div class="widget">
+            <div class="widget-header">
+                <h2>ZoLiryzik Community</h2>
+            </div>
+            <div class="widget-body">
+                <div id="status-counts"></div>
+                <ul class="member-list" id="members">
+                    <!-- Members will be dynamically loaded here -->
+                </ul>
+            </div>
+        </div>
+    </div>
 
+    <script>
+        fetch('https://discord.com/api/guilds/940706681510318141/widget.json')
+            .then(response => response.json())
+            .then(data => {
+                const memberList = document.getElementById('members');
+                const statusCounts = document.getElementById('status-counts');
+
+                let onlineCount = 0;
+                let idleCount = 0;
+                let dndCount = 0;
+
+                data.members.forEach(member => {
+                    // Подсчет статусов
+                    if (member.status === 'online') onlineCount++;
+                    if (member.status === 'idle') idleCount++;
+                    if (member.status === 'dnd') dndCount++;
+
+                    // Формирование списка участников
+                    const listItem = document.createElement('li');
+
+                    const avatar = document.createElement('img');
+                    avatar.src = member.avatar_url || 'https://via.placeholder.com/50';
+                    avatar.alt = member.username;
+                    avatar.classList.add('member-avatar');
+
+                    const infoDiv = document.createElement('div');
+                    infoDiv.classList.add('member-info');
+
+                    const name = document.createElement('div');
+                    name.classList.add('member-name');
+                    name.textContent = member.discriminator === '0000'
+                        ? `${member.username}`
+                        : `${member.username}#${member.discriminator}`;
+
+                    const status = document.createElement('div');
+                    status.classList.add('member-status');
+
+                    const statusText = member.status === 'online' ? '🟢 В сети' :
+                                       member.status === 'idle' ? '🌙 Не активен' :
+                                       member.status === 'dnd' ? '🔴 Не беспокоить' : '⚪ Оффлайн';
+                    status.textContent = `Статус: ${statusText}`;
+
+                    infoDiv.appendChild(name);
+                    infoDiv.appendChild(status);
+
+                    listItem.appendChild(avatar);
+                    listItem.appendChild(infoDiv);
+
+                    memberList.appendChild(listItem);
+                });
+
+                // Отображение чисел на странице
+                statusCounts.innerHTML = `
+                    <p>🟢 Онлайн: ${onlineCount}</p>
+                    <p>🌙 Не активен: ${idleCount}</p>
+                    <p>🔴 Не беспокоить: ${dndCount}</p>
+                `;
+                statusCounts.style.color = '#ffffff';
+            })
+            .catch(error => console.error('Ошибка при загрузке данных виджета Discord:', error));
+    </script>
 </body>
 </html>
-
-
