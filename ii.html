@@ -104,7 +104,7 @@
     <center>
         <iframe src="https://discord.com/widget?id=940706681510318141&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
     </center>
-   <!-- <script>
+    <script>
         fetch('https://discord.com/api/guilds/940706681510318141/widget.json')
             .then(response => response.json())
             .then(data => {
@@ -164,29 +164,6 @@
                 statusCounts.style.color = '#ffffff';
             })
             .catch(error => console.error('Ошибка при загрузке данных виджета Discord:', error));
-    </script> -->
-	<script>
-    fetch('https://discord.com/api/guilds/940706681510318141/widget.json')
-        .then(response => response.json())
-        .then(data => {
-            const voiceActivity = document.createElement('div');
-            const widgetBody = document.querySelector('.widget-body');
-
-            // Фильтрация участников с голосовой активностью
-            const voiceMembers = data.members.filter(member => member.voice_channel_id);
-
-            // Отображение информации
-            voiceActivity.innerHTML = `
-                <h3 style="color: #ffffff;">Активность в голосовых каналах</h3>
-                <p style="color: #ffffff;">Количество участников: ${voiceMembers.length}</p>
-                <ul style="list-style: none; padding: 0; color: #ffffff;">
-                    ${voiceMembers.map(member => `<li>${member.username}#${member.discriminator}</li>`).join('')}
-                </ul>
-            `;
-            widgetBody.prepend(voiceActivity);
-        })
-        .catch(error => console.error('Ошибка при загрузке данных JSON:', error));
-</script>
-
+    </script>
 </body>
 </html>
