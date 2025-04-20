@@ -1,0 +1,10 @@
+{% set targetMember2 = arguments.get(1) %}
+{% set targetMember = message.mentionedMembers[0] %}
+{% if targetMember2 == null %}
+Ваш баланс : {{ member.getAttribute('money')}} монет.
+{% else %} 
+{% if targetMember2 = = targetMember %}
+Баланс участника {{ targetMember }} : {{ targetMember.getAttribute('money') }} монет.
+{% else %}
+**Ошибка**
+{% endif %}{% endif %}
