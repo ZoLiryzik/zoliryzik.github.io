@@ -1,0 +1,157 @@
+    /* Секция с командами */
+    .codes-section {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 2rem auto;
+      }
+  
+      .search-container {
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+  
+      #code-search {
+        width: 100%;
+        max-width: 500px;
+        padding: 12px 20px;
+        border-radius: 25px;
+        border: 2px solid #7289da;
+        background: #2b2b2b;
+        color: #fff;
+        font-size: 1rem;
+      }
+  
+      /* Сетка команд */
+      .code-grid {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+  
+      .code-card {
+        background: #2c2f33;
+        border-radius: 15px;
+        padding: 1.5rem;
+        transition: transform 0.3s ease;
+      }
+  
+      .code-card:hover {
+        transform: translateY(-5px);
+      }
+  
+      .code-actions {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 1rem;
+      }
+  
+      .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'Unbounded', sans-serif;
+      }
+  
+      .preview-btn {
+        background: #43b581;
+        color: white;
+      }
+  
+      .copy-btn {
+        background: #7289da;
+        color: white;
+      }
+  
+      .btn:hover {
+        opacity: 0.9;
+      }
+  
+      pre.code {
+        background: #23272a;
+        padding: 1rem;
+        border-radius: 10px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+  
+      .no-results {
+        grid-column: 1 / -1;
+        text-align: center;
+        color: #888;
+        padding: 2rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+      .no-results h3 {
+        color: #fff;
+        margin: 0;
+      }
+  
+      .no-results p {
+        margin: 0;
+        font-size: 0.9em;
+      }
+      /* Модальное окно */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 1000;
+      }
+  
+      .modal-content {
+        background: #2c2f33;
+        margin: 5% auto;
+        padding: 20px;
+        width: 80%;
+        max-width: 800px;
+        border-radius: 15px;
+        position: relative;
+        max-height: 80vh;
+        overflow: auto;
+        
+      }
+  
+      .close {
+        color: #aaa;
+        position: absolute;
+        right: 20px;
+        /*top: 10px;*/
+        top: auto;
+        font-size: 28px;
+        cursor: pointer;
+      }
+  
+      .close:hover {
+        color: #fff;
+      }
+      .download-btn {
+        background: #faa61a;
+        color: white;
+      }
+      
+      .code-line-number {
+        color: #888;
+        margin-right: 10px;
+        user-select: none;
+      }
+      
+      .code-line {
+        display: flex;
+        margin-bottom: 2px;
+      }
+      
+      .code-content {
+        flex-grow: 1;
+        color: #ffa200
+      }
