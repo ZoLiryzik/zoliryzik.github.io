@@ -1,4 +1,12 @@
-    /* Секция с командами */
+.codes-section h2 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 40px;
+    text-align: center;
+    line-height: 38px;
+}
+/* Секция с командами */
     .codes-section {
         padding: 2rem;
         max-width: 1200px;
