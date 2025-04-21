@@ -8,7 +8,7 @@ footer {
 
 .blue-stripe {
   height: 4px;
-  background: #20B2AA;
+  background: #2f803c;
   width: 100%;
   position: absolute;
   top: 0;
@@ -43,7 +43,7 @@ footer {
 }
 
 #current-year {
-  color: #20B2AA;
+  color: #2f803c;
 }
 
 @media (max-width: 768px) {
