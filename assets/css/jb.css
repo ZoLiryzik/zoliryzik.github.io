@@ -1,3 +1,6 @@
+.codes-section h2 {
+  text-align: center;
+}
 .notification {
   position: fixed;
   bottom: 25px;
