@@ -1,3 +1,5 @@
+// Отображение текущего года
+document.getElementById("current-year").textContent = new Date().getFullYear();
 // ========== News Data ========== 
 const newsData = [
     {
