@@ -121,7 +121,7 @@ const search = document.getElementById('code-search');
 search.addEventListener('input', (e) => {
   const query = e.target.value.toLowerCase().trim();
   const filtered = codeExamples.filter(cmd => 
-      [cmd.title, cmd.description, cmd.code, cmd.deistvie]
+      [cmd.title, cmd.description, cmd.code, cmd.deistvie, ...cmd.link]
           .join(' ')
           .toLowerCase()
           .includes(query)
