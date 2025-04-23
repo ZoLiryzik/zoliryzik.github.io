@@ -1,0 +1,6 @@
+{% if member.getAttribute('miner') == 0 %}
+{% return "**Вы не устроены на работу шахтёром**" %}
+{% else %} 
+{% do member.getAttribute("miner").update(0) %}
+Вы успешно уволились с работы шахтёр 
+{% endif %}

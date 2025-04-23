@@ -1,0 +1,15 @@
+{% set money = member.getAttribute("bank") %}
+{% require arguments.get(1) returning "Использование: !снять <кол-во>" %}
+{% require number(arguments.get(1)) returning "Это не число" %}
+{% require arguments.get(1) > 0 returning "**Вы не можете снять отрицательную сумму из банка**" %}
+{% set abank = arguments.get(1) %}
+{% set mbank = member.getAttribute("bank").value %}
+{% if mbank < abank %}
+{% return "**У вас недостаточно денег на балансе**"  %}
+{% else %}
+{% if mbank >= abank %}
+{% do member.getAttribute("bank").decrement(abank) %}
+{% do member.getAttribute("money").increment(abank) %}
+**Вы успешно сняли: *{{abank}}* монет из банка**
+
+{% endif %}{% endif %}
