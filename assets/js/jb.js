@@ -115,13 +115,25 @@ codes.forEach(cmd => {
   container.appendChild(card);
 });
 }
+// Добавьте эту функцию для "очистки" ссылок перед сравнением
+function normalizeLink(link) {
+  return link
+    .toLowerCase()
+    .replace('https://', '')
+    .replace('www.', '')
+    .trim();
+}
 
+// И обновите проверку ссылок:
+const linkMatch = cmd.link.some(link => 
+  normalizeLink(link).includes(normalizeLink(query))
+);
 function initSearch(codeExamples) {
   const search = document.getElementById('code-search');
   search.addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase().trim();
     const filtered = codeExamples.filter(cmd => {
-      // Проверка основных текстовых полей
+      // Проверка основных полей
       const basicMatch = [
         cmd.title,
         cmd.description,
@@ -130,11 +142,9 @@ function initSearch(codeExamples) {
       ].some(field => field.toLowerCase().includes(query));
       
       // Проверка ссылок
-      const linkMatch = cmd.link.some(link => {
-        // Ищем полное совпадение в каждой части URL
-        const urlParts = link.toLowerCase().split(/[/?#=&]/g);
-        return urlParts.some(part => part.includes(query));
-      });
+      const linkMatch = cmd.link.some(link => 
+        link.toLowerCase().includes(query)
+      );
       
       return basicMatch || linkMatch;
     });
