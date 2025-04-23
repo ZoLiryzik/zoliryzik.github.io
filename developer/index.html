@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль с меню</title>
+    <style>
+        /* Общие стили карточки */
+        .card {
+            width: 350px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: #f9f9f9;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Стили меню */
+        .tabs-menu {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            background: #ecf0f1;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: #3498db;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Стили контента */
+        .tab-content {
+            display: none;
+            padding: 20px;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Остальные стили из предыдущей карточки */
+        .profile-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .name {
+            text-align: center;
+            color: #2c3e50;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <!-- Меню -->
+        <div class="tabs-menu">
+            <button class="tab-btn active" onclick="openTab(event, 'main')">Главная</button>
+            <button class="tab-btn" onclick="openTab(event, 'skills')">Навыки</button>
+            <button class="tab-btn" onclick="openTab(event, 'contact')">Контакты</button>
+        </div>
+
+        <!-- Контент вкладок -->
+        <div id="main" class="tab-content active">
+            <img src="your-photo.jpg" alt="Фото" class="profile-img">
+            <h2 class="name">Иван Иванов</h2>
+            <p class="bio">
+                Веб-разработчик с фокусом на современных технологиях.
+                Специализация: React, Node.js и облачные решения.
+            </p>
+        </div>
+
+        <div id="skills" class="tab-content">
+            <h3>Профессиональные навыки</h3>
+            <ul>
+                <li>Frontend: HTML5, CSS3, JavaScript</li>
+                <li>Backend: Node.js, Python</li>
+                <li>Базы данных: MySQL, MongoDB</li>
+                <li>Другое: Git, Docker, AWS</li>
+            </ul>
+        </div>
+
+        <div id="contact" class="tab-content">
+            <h3>Контакты</h3>
+            <p>📧 email@example.com</p>
+            <p>📱 +7 900 123-45-67</p>
+            <p>🌐 example.com</p>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            // Скрыть все вкладки
+            let tabContents = document.getElementsByClassName("tab-content");
+            for (let tab of tabContents) {
+                tab.classList.remove("active");
+            }
+
+            // Убрать активные классы у кнопок
+            let tabButtons = document.getElementsByClassName("tab-btn");
+            for (let btn of tabButtons) {
+                btn.classList.remove("active");
+            }
+
+            // Показать выбранную вкладку
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
