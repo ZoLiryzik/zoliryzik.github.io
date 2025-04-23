@@ -1,3 +1,0 @@
-{% set rand = random(5, 10) %}
-{% do member.getAtteibute(‘money’).increment(rand) %}
-Вы забрали {{rand}} монет

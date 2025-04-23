@@ -1,7 +1,0 @@
-{% if member.getAttribute('miner') == '1' %}
-Вы уже устроены на работу шахтёром
-{% else %} 
-{% do member.getAttribute('commands').increment(1) %}
-{% do member.getAttribute('miner').increment(1) %}
-Вы успешно устроились на работу шахтёром
-{% endif %}

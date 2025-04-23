@@ -1,7 +1,0 @@
-{% if member.getAttribute('miner') == '1' %}
-{% set rand2 = random(10, 110) %}
-{% do member.getAttribute('money').increment(rand2) %}
-Вы успешно заработали {{rand2}} монет в шахте!
-{% else %}
-Вы не работаете
-{% endif %}
