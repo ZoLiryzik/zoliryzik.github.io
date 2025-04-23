@@ -1,6 +1,7 @@
-{% if member.getAttribute('miner') == 0 %}
-{% return "**Вы не устроены на работу шахтёром**" %}
-{% else %} 
-{% do member.getAttribute("miner").update(0) %}
-Вы успешно уволились с работы шахтёр 
+{% if member.getAttribute('miner') == '1' %}
+{% set rand2 = random(10, 110) %}
+{% do member.getAttribute('money').increment(rand2) %}
+Вы успешно заработали {{rand2}} монет в шахте!
+{% else %}
+Вы не работаете
 {% endif %}
