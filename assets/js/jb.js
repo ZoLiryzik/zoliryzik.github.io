@@ -117,17 +117,28 @@ codes.forEach(cmd => {
 }
 
 function initSearch(codeExamples) {
-const search = document.getElementById('code-search');
-search.addEventListener('input', (e) => {
-  const query = e.target.value.toLowerCase().trim();
-  const filtered = codeExamples.filter(cmd => 
-      [cmd.title, cmd.description, cmd.code, cmd.deistvie, ...cmd.link]
-          .join(' ')
-          .toLowerCase()
-          .includes(query)
-  );
-  renderCodes(filtered);
-});
+  const search = document.getElementById('code-search');
+  search.addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase().trim();
+    const filtered = codeExamples.filter(cmd => {
+      // Проверяем основные поля
+      const inBasicFields = [
+        cmd.title,
+        cmd.description,
+        cmd.code,
+        cmd.deistvie
+      ].some(field => field.toLowerCase().includes(query));
+      
+      // Проверяем каждую ссылку отдельно
+      const inLinks = cmd.link.some(link => 
+        link.toLowerCase().includes(query)
+      );
+      
+      return inBasicFields || inLinks;
+    });
+    
+    renderCodes(filtered);
+  });
 }
 
 function initModal() {
