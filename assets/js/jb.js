@@ -121,20 +121,22 @@ function initSearch(codeExamples) {
   search.addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase().trim();
     const filtered = codeExamples.filter(cmd => {
-      // Проверяем основные поля
-      const inBasicFields = [
+      // Проверка основных текстовых полей
+      const basicMatch = [
         cmd.title,
         cmd.description,
         cmd.code,
         cmd.deistvie
       ].some(field => field.toLowerCase().includes(query));
       
-      // Проверяем каждую ссылку отдельно
-      const inLinks = cmd.link.some(link => 
-        link.toLowerCase().includes(query)
-      );
+      // Проверка ссылок
+      const linkMatch = cmd.link.some(link => {
+        // Ищем полное совпадение в каждой части URL
+        const urlParts = link.toLowerCase().split(/[/?#=&]/g);
+        return urlParts.some(part => part.includes(query));
+      });
       
-      return inBasicFields || inLinks;
+      return basicMatch || linkMatch;
     });
     
     renderCodes(filtered);
