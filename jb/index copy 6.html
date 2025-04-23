@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>ZoLiryzik Community - Команды</title>
+  <meta name="description" content="Примеры команд для экономики сервера">
+  <meta property="og:image" content="/assets/img/logo.webp">
+  <link rel="icon" href="/assets/img/image.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/assets/img/image.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/assets/css/banner.css">
+  <link rel="stylesheet" href="/assets/css/button.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/news.css">
+  <!-- Стили -->
+  <style>
+    /* Секция с командами */
+    .codes-section {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 2rem auto;
+    }
+
+    .search-container {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    #code-search {
+      width: 100%;
+      max-width: 500px;
+      padding: 12px 20px;
+      border-radius: 25px;
+      border: 2px solid #7289da;
+      background: #2b2b2b;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    /* Сетка команд */
+    .code-grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .code-card {
+      background: #2c2f33;
+      border-radius: 15px;
+      padding: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .code-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .code-actions {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Unbounded', sans-serif;
+    }
+
+    .preview-btn {
+      background: #43b581;
+      color: white;
+    }
+
+    .copy-btn {
+      background: #7289da;
+      color: white;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    pre.code {
+      background: #23272a;
+      padding: 1rem;
+      border-radius: 10px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: #888;
+      padding: 2rem;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .no-results h3 {
+      color: #fff;
+      margin: 0;
+    }
+
+    .no-results p {
+      margin: 0;
+      font-size: 0.9em;
+    }
+    /* Модальное окно */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #2c2f33;
+      margin: 5% auto;
+      padding: 20px;
+      width: 80%;
+      max-width: 800px;
+      border-radius: 15px;
+      position: relative;
+      max-height: 80vh;
+      overflow: auto;
+      
+    }
+
+    .close {
+      color: #aaa;
+      position: absolute;
+      right: 20px;
+      /*top: 10px;*/
+      top: auto;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #fff;
+    }
+    .download-btn {
+      background: #faa61a;
+      color: white;
+    }
+    
+    .code-line-number {
+      color: #888;
+      margin-right: 10px;
+      user-select: none;
+    }
+    
+    .code-line {
+      display: flex;
+      margin-bottom: 2px;
+    }
+    
+    .code-content {
+      flex-grow: 1;
+      color: #ffa200
+    }
+  </style>
+</head>
+<body>
+  <!-- Главная страница -->
+  <header class="main-banner">
+    <div class="main-banner-img">
+      <img src="/assets/img/logo.webp" alt="Логотип сообщества" loading="lazy">
+    </div>
+
+    <div class="main-banner-title">
+      <h1>ZoLiryzik</h1>
+      <h2>COMMUNITY</h2>
+    </div>
+
+    <nav class="nav-buttons">
+      <a href="/" class="nav-button" aria-label="Главная">
+        <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+          <path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"></path>
+        </svg>
+        <span>Главная</span>
+      </a>
+      <a href="/support" class="nav-button" aria-label="О нас">
+        <svg fill="#ffffff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+          <path fill="currentColor" d="M524.5 69.8a1.5 1.5 0 0 0 -.8-.7A485.1 485.1 0 0 0 404.1 32a1.8 1.8 0 0 0 -1.9 .9 337.5 337.5 0 0 0 -14.9 30.6 447.8 447.8 0 0 0 -134.4 0 309.5 309.5 0 0 0 -15.1-30.6 1.9 1.9 0 0 0 -1.9-.9A483.7 483.7 0 0 0 116.1 69.1a1.7 1.7 0 0 0 -.8 .7C39.1 183.7 18.2 294.7 28.4 404.4a2 2 0 0 0 .8 1.4A487.7 487.7 0 0 0 176 479.9a1.9 1.9 0 0 0 2.1-.7A348.2 348.2 0 0 0 208.1 430.4a1.9 1.9 0 0 0 -1-2.6 321.2 321.2 0 0 1 -45.9-21.9 1.9 1.9 0 0 1 -.2-3.1c3.1-2.3 6.2-4.7 9.1-7.1a1.8 1.8 0 0 1 1.9-.3c96.2 43.9 200.4 43.9 295.5 0a1.8 1.8 0 0 1 1.9 .2c2.9 2.4 6 4.9 9.1 7.2a1.9 1.9 0 0 1 -.2 3.1 301.4 301.4 0 0 1 -45.9 21.8 1.9 1.9 0 0 0 -1 2.6 391.1 391.1 0 0 0 30 48.8 1.9 1.9 0 0 0 2.1 .7A486 486 0 0 0 610.7 405.7a1.9 1.9 0 0 0 .8-1.4C623.7 277.6 590.9 167.5 524.5 69.8zM222.5 337.6c-29 0-52.8-26.6-52.8-59.2S193.1 219.1 222.5 219.1c29.7 0 53.3 26.8 52.8 59.2C275.3 311 251.9 337.6 222.5 337.6zm195.4 0c-29 0-52.8-26.6-52.8-59.2S388.4 219.1 417.9 219.1c29.7 0 53.3 26.8 52.8 59.2C470.7 311 447.5 337.6 417.9 337.6z"/>
+          <path fill="currentColor" d="M13 7h-2v6h6v-2h-4z"/>
+        </svg>
+        <span>Дискорд</span>
+      </a>
+      <a href="#" class="nav-button" aria-label="О нас">
+        <svg fill="#ffffff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <path fill="currentColor" d="M503.5 241.5c-.1-1.6-.2-3.1-.2-4.7v-.1l-.4-4.7v-.1a245.9 245.9 0 0 0 -7.3-41.2c0-.1 0-.1-.1-.2l-1.1-4c-.1-.2-.1-.5-.2-.6-.4-1.2-.7-2.5-1.1-3.7-.1-.2-.1-.6-.2-.8-.4-1.2-.7-2.4-1.1-3.5-.1-.4-.2-.6-.4-1-.4-1.2-.7-2.3-1.2-3.5l-.4-1.1c-.4-1.1-.8-2.3-1.2-3.4a8.3 8.3 0 0 0 -.4-1c-.5-1.1-.8-2.3-1.3-3.4-.1-.2-.2-.6-.4-.8-.5-1.2-1-2.3-1.4-3.5 0-.1-.1-.2-.1-.4-1.6-3.8-3.2-7.7-5-11.4l-.4-.7c-.5-1-.8-1.8-1.3-2.6-.2-.5-.5-1.1-.7-1.6-.4-.8-.8-1.6-1.2-2.4-.4-.6-.6-1.2-1-1.8s-.8-1.4-1.2-2.3c-.4-.6-.7-1.3-1.1-1.9s-.8-1.4-1.2-2.2a18.1 18.1 0 0 0 -1.2-2c-.4-.7-.8-1.3-1.2-2s-.8-1.3-1.2-2-.8-1.3-1.2-1.9-.8-1.4-1.3-2.2a15.6 15.6 0 0 0 -1.2-1.8L463.2 119a15.6 15.6 0 0 0 -1.2-1.8c-.5-.7-1.1-1.6-1.6-2.3-.4-.5-.7-1.1-1.1-1.6l-1.8-2.5c-.4-.5-.6-.8-1-1.3-1-1.3-1.8-2.5-2.8-3.7a248.8 248.8 0 0 0 -23.5-26.6A186.8 186.8 0 0 0 412 62.5c-4-3.5-8.2-6.7-12.5-9.8a162.5 162.5 0 0 0 -24.6-15.1c-2.4-1.3-4.8-2.5-7.2-3.7a254 254 0 0 0 -55.4-19.6c-1.9-.4-3.8-.8-5.6-1.2h-.1c-1-.1-1.8-.4-2.8-.5a236.4 236.4 0 0 0 -38-4H255.1a234.6 234.6 0 0 0 -45.5 5c-33.6 7.1-63.2 21.2-82.9 39-1.1 1-1.9 1.7-2.4 2.2l-.5 .5H124l-.1 .1 .1-.1a.1 .1 0 0 0 .1-.1l-.1 .1a.4 .4 0 0 1 .2-.1c14.6-8.8 34.9-16 49.4-19.6l5.9-1.4c.4-.1 .8-.1 1.2-.2 1.7-.4 3.4-.7 5.2-1.1 .2 0 .6-.1 .8-.1C250.9 20.9 319.3 40.1 367 85.6a171.5 171.5 0 0 1 26.9 32.8c30.4 49.2 27.5 111.1 3.8 147.6-34.4 53-111.4 71.3-159 24.8a84.2 84.2 0 0 1 -25.6-59 74.1 74.1 0 0 1 6.2-31c1.7-3.8 13.1-25.7 18.2-24.6-13.1-2.8-37.6 2.6-54.7 28.2-15.4 22.9-14.5 58.2-5 83.3a132.9 132.9 0 0 1 -12.1-39.2c-12.2-82.6 43.3-153 94.3-170.5-27.5-24-96.5-22.3-147.7 15.4-29.9 22-51.2 53.2-62.5 90.4 1.7-20.9 9.6-52.1 25.8-83.9-17.2 8.9-39 37-49.8 62.9-15.6 37.4-21 82.2-16.1 124.8 .4 3.2 .7 6.4 1.1 9.6 19.9 117.1 122 206.4 244.8 206.4C392.8 503.4 504 392.2 504 255 503.9 250.5 503.8 245.9 503.5 241.5z"/>
+          <path fill="currentColor" d="M13 7h-2v6h6v-2h-4z"/>
+        </svg>
+        <span>Коды</span>
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="codes-section">
+      <div class="search-container">
+        <input type="text" id="code-search" placeholder="Поиск по командам...">
+      </div>
+      <div class="code-grid" id="codes-container"></div>
+    </section>
+  </main>
+
+  <div id="preview-modal" class="modal">
+    <div class="modal-content">
+      <span class="close"> </span>
+      <div id="preview-code" class="code-content"></div>
+    </div>
+  </div>
+
+  <script>
+    // Загрузка команд из указанных файлов
+    async function loadCodeExamples() {
+      // Прямое указание файлов с кодом
+      const codeFiles = [
+        {
+          title: "Получить бонус",
+          filename: "1/bonus.txt",
+          description: "Команда для получения ежедневного бонуса",
+          deistvie: "Действие: 1",
+          link: ['https://discord.com/channels/940706681510318141/1139227534228205720', 'https://www.youtube.com/watch?v=7m0abqEykFQ', 'https://youtube.com/watch?v=7m0abqEykFQ', 'https://youtu.be/7m0abqEykFQ', '7m0abqEykFQ' ]
+        },
+        {
+          title: "Просмотр баланса участника и свой",
+          filename: "1/balance.txt", 
+          description: "Команда для проверки баланса",
+          deistvie: "Действие: 1",
+          link: ['https://discord.com/channels/940706681510318141/1139227534228205720', 'https://www.youtube.com/watch?v=7m0abqEykFQ', 'https://youtube.com/watch?v=7m0abqEykFQ', 'https://youtu.be/7m0abqEykFQ', '7m0abqEykFQ' ]
+        },
+        {
+          title: "Устроится шахтёром",
+          filename: "2/устроится_шахтёром.txt",
+          description: "Устроится шахтёром",
+          deistvie: "Действие: 2",
+          link: ['https://discord.com/channels/940706681510318141/1139227933559505027', 'https://www.youtube.com/watch?v=8kNKljzhnIQ', 'https://youtube.com/watch?v=8kNKljzhnIQ', 'https://youtu.be/8kNKljzhnIQ', '8kNKljzhnIQ' ]
+        },
+        {
+          title: "Работать шахтёром",
+          filename: "2/работать_шахтёром.txt", 
+          description: "Работать шахтёром",
+          deistvie: "Действие: 2",
+          link: ['https://discord.com/channels/940706681510318141/1139227933559505027', 'https://www.youtube.com/watch?v=8kNKljzhnIQ', 'https://youtube.com/watch?v=8kNKljzhnIQ', 'https://youtu.be/8kNKljzhnIQ', '8kNKljzhnIQ' ]
+        },
+        {
+          title: "Уволиться с работы шахтёр",
+          filename: "2/увалится_с_работы_шахтёр.txt", 
+          description: "Уволиться с работы шахтёр",
+          deistvie: "Действие: 2",
+          link: ['https://discord.com/channels/940706681510318141/1139227933559505027', 'https://www.youtube.com/watch?v=8kNKljzhnIQ', 'https://youtube.com/watch?v=8kNKljzhnIQ', 'https://youtu.be/8kNKljzhnIQ', '8kNKljzhnIQ' ]
+        }
+        ,
+        {
+          title: "Положить монеты в банк",
+          filename: "3/положить_монеты_в_банк.txt",
+          description: "Положить монеты в банк",
+          deistvie: "Действие: 3",
+          link: ['https://discord.com/channels/940706681510318141/1139228394618359809', 'https://www.youtube.com/watch?v=tRVYH7RHyy8', 'https://youtube.com/watch?v=tRVYH7RHyy8', 'https://youtu.be/tRVYH7RHyy8', 'tRVYH7RHyy8' ]
+        },
+        {
+          title: "Снять монеты из банка",
+          filename: "3/снять_монеты_из_банка.txt", 
+          description: "Снять монеты из банка",
+          deistvie: "Действие: 3",
+          link: ['https://discord.com/channels/940706681510318141/1139228394618359809', 'https://www.youtube.com/watch?v=tRVYH7RHyy8', 'https://youtube.com/watch?v=tRVYH7RHyy8', 'https://youtu.be/tRVYH7RHyy8', 'tRVYH7RHyy8' ]
+        },
+        {
+          title: " Обновлённый баланс",
+          filename: "3/обновлённый_баланс.txt", 
+          description: " Обновлённый баланс",
+          deistvie: "Действие: 3",
+          link: ['https://discord.com/channels/940706681510318141/1139228394618359809', 'https://www.youtube.com/watch?v=tRVYH7RHyy8', 'https://youtube.com/watch?v=tRVYH7RHyy8', 'https://youtu.be/tRVYH7RHyy8', 'tRVYH7RHyy8' ]
+        }
+      ];
+      
+      // Загружаем содержимое каждого файла
+      const codeExamples = [];
+      for (const file of codeFiles) {
+        try {
+          const codeResponse = await fetch(`/assets/code/${file.filename}`);
+          if (!codeResponse.ok) throw new Error('File not found');
+          const code = await codeResponse.text();
+          
+          codeExamples.push({
+            title: file.title,
+            code: code,
+            description: file.description,
+            deistvie: file.deistvie,
+            link: file.link,
+            filename: file.filename // Сохраняем имя файла
+          });
+        } catch (err) {
+          console.error(`Ошибка загрузки файла ${file.filename}:`, err);
+          // Добавляем заглушку если файл не загрузился
+          codeExamples.push({
+            title: file.title,
+            code: `// Файл ${file.filename} не найден\n// Проверьте путь к файлу`,
+            description: file.description,
+            deistvie: file.deistvie,
+            link: file.link,
+            filename: file.filename
+          });
+        }
+      }
+      
+      return codeExamples;
+    }
+
+    // Форматирование кода с нумерацией строк
+    function formatCodeWithLineNumbers(code) {
+      const lines = code.split('\n');
+      const container = document.createElement('div');
+      
+      lines.forEach((line, index) => {
+        const lineDiv = document.createElement('div');
+        lineDiv.className = 'code-line';
+        
+        const lineNumber = document.createElement('span');
+        lineNumber.className = 'code-line-number';
+        lineNumber.textContent = index + 1;
+        
+        const lineContent = document.createElement('span');
+        lineContent.className = 'code-content';
+        // Сохраняем пробелы, заменяя их на неразрывные
+        lineContent.innerHTML = line.replace(/ /g, '&nbsp;');
+        
+        lineDiv.appendChild(lineNumber);
+        lineDiv.appendChild(lineContent);
+        container.appendChild(lineDiv);
+      });
+      
+      return container;
+    }
+
+    // Инициализация при загрузке страницы
+    document.addEventListener('DOMContentLoaded', async () => {
+      const codeExamples = await loadCodeExamples();
+      renderCodes(codeExamples);
+      initSearch(codeExamples);
+      initModal();
+    });
+
+    // Рендер списка команд (остается без изменений)
+    function renderCodes(codes) {
+      const container = document.getElementById('codes-container');
+      container.innerHTML = '';
+
+      if (codes.length === 0) {
+        const emptyMsg = document.createElement('div');
+        emptyMsg.className = 'no-results';
+        emptyMsg.innerHTML = `
+          <h3>Ничего не найдено</h3>
+          <p>Попробуйте изменить поисковый запрос</p>
+        `;
+        container.appendChild(emptyMsg);
+        return;
+      }
+
+      codes.forEach(cmd => {
+        const card = document.createElement('div');
+        card.className = 'code-card';
+        card.innerHTML = `
+          <div class="code-actions">
+            <button class="btn preview-btn" data-id="${cmd.title}">Предпросмотр</button>
+            <button class="btn copy-btn" data-code="${encodeURIComponent(cmd.code)}">Копировать</button>
+          </div>
+          <h3>${cmd.title}</h3>
+          <p>${cmd.description}</p>
+          <p>${cmd.deistvie}</p>
+          <!--<p class="file-info">Файл: ${cmd.filename}</p>-->
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Инициализация поиска (остается без изменений)
+    function initSearch(codeExamples) {
+      const search = document.getElementById('code-search');
+      search.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        const filtered = codeExamples.filter(cmd => {
+          const searchString = [
+            cmd.title,
+            cmd.description,
+            cmd.code,
+            cmd.deistvie,
+            cmd.filename,
+            Array.isArray(cmd.link) ? cmd.link.join(' ') : cmd.link
+          ].join(' ').toLowerCase();
+          return searchString.includes(query);
+        });
+        renderCodes(filtered);
+      });
+    }
+
+    // Инициализация модального окна (остается без изменений)
+    function initModal() {
+      const modal = document.getElementById('preview-modal');
+      const closeBtn = modal.querySelector('.close');
+
+      document.addEventListener('click', (e) => {
+        // Предпросмотр
+        if (e.target.classList.contains('preview-btn')) {
+          const title = e.target.dataset.id;
+          const container = document.getElementById('preview-code');
+          container.innerHTML = '';
+          
+          // Находим команду по заголовку
+          const allCards = document.querySelectorAll('.code-card');
+          let foundCode = null;
+          
+          allCards.forEach(card => {
+            if (card.querySelector('h3').textContent === title) {
+              const code = decodeURIComponent(card.querySelector('.copy-btn').dataset.code);
+              foundCode = code;
+            }
+          });
+          
+          if (foundCode) {
+            const formattedCode = formatCodeWithLineNumbers(foundCode);
+            container.appendChild(formattedCode);
+            modal.style.display = 'block';
+          }
+        }
+
+        // Копирование
+        if (e.target.classList.contains('copy-btn')) {
+          const code = decodeURIComponent(e.target.dataset.code);
+          copyToClipboard(code);
+        }
+      });
+
+      // Закрытие модалки
+      closeBtn.onclick = () => modal.style.display = 'none';
+      window.onclick = (e) => e.target === modal && (modal.style.display = 'none');
+    }
+
+    // Вспомогательные функции (остаются без изменений)
+    function sanitizeFileName(name) {
+      return name
+        .replace(/[^а-яА-ЯёЁa-zA-Z0-9\s_-]/g, '')
+        .replace(/\s+/g, '_')
+        .substring(0, 50);
+    }
+
+    async function copyToClipboard(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        showNotification('✓ Код скопирован!');
+      } catch (err) {
+        showNotification('⚠ Ошибка копирования', true);
+      }
+    }
+
+    function showNotification(text, isError = false) {
+      const note = document.createElement('div');
+      note.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 12px 24px;
+        border-radius: 8px;
+        background: ${isError ? '#ed4245' : '#43b581'};
+        color: white;
+        font-weight: 500;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        z-index: 1000;
+      `;
+      note.textContent = text;
+      document.body.appendChild(note);
+      setTimeout(() => note.remove(), 2000);
+    }
+  </script>
+</body>
+</html>

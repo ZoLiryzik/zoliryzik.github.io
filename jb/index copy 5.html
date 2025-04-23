@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>ZoLiryzik Community - Команды</title>
+  <meta name="description" content="Примеры команд для экономики сервера">
+  <meta property="og:image" content="/assets/img/logo.webp">
+  <link rel="icon" href="/assets/img/image.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/assets/img/image.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/assets/css/banner.css">
+  <link rel="stylesheet" href="/assets/css/button.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/news.css">
+  <!-- Стили -->
+  <style>
+
+
+    /* Секция с командами */
+    .codes-section {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 2rem auto;
+    }
+
+    .search-container {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    #code-search {
+      width: 100%;
+      max-width: 500px;
+      padding: 12px 20px;
+      border-radius: 25px;
+      border: 2px solid #7289da;
+      background: #2b2b2b;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    /* Сетка команд */
+    .code-grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .code-card {
+      background: #2c2f33;
+      border-radius: 15px;
+      padding: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .code-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .code-actions {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Unbounded', sans-serif;
+    }
+
+    .preview-btn {
+      background: #43b581;
+      color: white;
+    }
+
+    .copy-btn {
+      background: #7289da;
+      color: white;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    pre.code {
+      background: #23272a;
+      padding: 1rem;
+      border-radius: 10px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: #888;
+      padding: 2rem;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+}
+    .no-results h3 {
+    color: #fff;
+    margin: 0;
+}
+
+    .no-results p {
+    margin: 0;
+    font-size: 0.9em;
+}
+    /* Модальное окно */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #2c2f33;
+      margin: 5% auto;
+      padding: 20px;
+      width: 80%;
+      max-width: 800px;
+      border-radius: 15px;
+      position: relative;
+    }
+
+    .close {
+      color: #aaa;
+      position: absolute;
+      right: 20px;
+      top: 10px;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #fff;
+    }
+    .download-btn {
+        background: #faa61a;
+        color: white;
+    }
+  </style>
+</head>
+<body>
+  <!-- Главная страница -->
+  <header class="main-banner">
+    <div class="main-banner-img">
+      <img src="/assets/img/logo.webp" alt="Логотип сообщества" loading="lazy">
+    </div>
+
+    <div class="main-banner-title">
+      <h1>ZoLiryzik</h1>
+      <h2>COMMUNITY</h2>
+    </div>
+
+    <nav class="nav-buttons">
+      <a href="#" class="nav-button" aria-label="Главная">
+        <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+          <path d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"></path>
+          </svg>
+        <span>Главная</span>
+      </a>
+      <!--<a href="/support" class="nav-button" aria-label="О нас">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+          <path fill="currentColor" d="M13 7h-2v6h6v-2h-4z"/>
+        </svg>-->
+      <a href="/support" class="nav-button" aria-label="О нас">
+        <svg fill="#ffffff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+          <path fill="currentColor" d="M524.5 69.8a1.5 1.5 0 0 0 -.8-.7A485.1 485.1 0 0 0 404.1 32a1.8 1.8 0 0 0 -1.9 .9 337.5 337.5 0 0 0 -14.9 30.6 447.8 447.8 0 0 0 -134.4 0 309.5 309.5 0 0 0 -15.1-30.6 1.9 1.9 0 0 0 -1.9-.9A483.7 483.7 0 0 0 116.1 69.1a1.7 1.7 0 0 0 -.8 .7C39.1 183.7 18.2 294.7 28.4 404.4a2 2 0 0 0 .8 1.4A487.7 487.7 0 0 0 176 479.9a1.9 1.9 0 0 0 2.1-.7A348.2 348.2 0 0 0 208.1 430.4a1.9 1.9 0 0 0 -1-2.6 321.2 321.2 0 0 1 -45.9-21.9 1.9 1.9 0 0 1 -.2-3.1c3.1-2.3 6.2-4.7 9.1-7.1a1.8 1.8 0 0 1 1.9-.3c96.2 43.9 200.4 43.9 295.5 0a1.8 1.8 0 0 1 1.9 .2c2.9 2.4 6 4.9 9.1 7.2a1.9 1.9 0 0 1 -.2 3.1 301.4 301.4 0 0 1 -45.9 21.8 1.9 1.9 0 0 0 -1 2.6 391.1 391.1 0 0 0 30 48.8 1.9 1.9 0 0 0 2.1 .7A486 486 0 0 0 610.7 405.7a1.9 1.9 0 0 0 .8-1.4C623.7 277.6 590.9 167.5 524.5 69.8zM222.5 337.6c-29 0-52.8-26.6-52.8-59.2S193.1 219.1 222.5 219.1c29.7 0 53.3 26.8 52.8 59.2C275.3 311 251.9 337.6 222.5 337.6zm195.4 0c-29 0-52.8-26.6-52.8-59.2S388.4 219.1 417.9 219.1c29.7 0 53.3 26.8 52.8 59.2C470.7 311 447.5 337.6 417.9 337.6z"/>
+          <path fill="currentColor" d="M13 7h-2v6h6v-2h-4z"/>
+        </svg>
+        <span>Дискорд</span>
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="codes-section">
+      <div class="search-container">
+        <input type="text" id="code-search" placeholder="Поиск по командам...">
+      </div>
+      <div class="code-grid" id="codes-container"></div>
+    </section>
+  </main>
+
+  <div id="preview-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <pre><code id="preview-code"></code></pre>
+    </div>
+  </div>
+
+  <div id="search-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div class="search-container">
+        <input type="text" id="code-search-modal" placeholder="Поиск по командам...">
+      </div>
+      <div id="results" class="code-grid"></div>
+    </div>
+  </div>
+  <script>
+//    const codeExamples = [
+//         {
+//             title: "Снятие из банка 1",
+//             code: `{% set money = member.getAttribute("bank") %}
+// {% require arguments.get(1) returning "Использование: !снять <кол-во>" %}
+// {% require number(arguments.get(1)) returning "Это не число" %}
+// {% require arguments.get(1) > 0 returning "**Нельзя снять отрицательную сумму**" %}
+// {% set abank = arguments.get(1) %}
+// {% set mbank = member.getAttribute("bank").value %}
+// {% if mbank < abank %}
+// {% return "**Недостаточно средств в банке**" %}
+// {% else %}
+// {% do member.getAttribute("bank").decrement(abank) %}
+// {% do member.getAttribute("money").increment(abank) %}
+// **Снято: *{{abank}}* монет из банка**
+// {% endif %}`,
+//             description: "Первая часть команды для снятия денег",
+//             link: "/commands/bank-withdraw"
+//         },
+//         {
+//             title: "Снятие из банка 2", 
+//             code: `{% set money = member.getAttribute("money") %}
+// {% require arguments.get(1) returning "Использование: !положить <кол-во>" %}
+// {% require number(arguments.get(1)) returning "Это не число" %}
+// {% require arguments.get(1) > 0 returning "**Нельзя положить отрицательную сумму**" %}
+// {% set abank = arguments.get(1) %}
+// {% set mbank = member.getAttribute("money").value %}
+// {% if mbank < abank %}
+// {% return "**Недостаточно средств**" %}
+// {% else %}
+// {% do member.getAttribute("money").decrement(abank) %}
+// {% do member.getAttribute("bank").increment(abank) %}
+// **Положено: *{{abank}}* монет в банк**
+// {% endif %}`,
+//             description: "Вторая часть команды для снятия",
+//             link: "/commands/bank-withdraw"
+//         }
+//     ];
+
+const codeExamples = [
+    {
+        title: "Получить бонус",
+        code: `{% set rand = random(5, 10) %}
+{% do member.getAtteibute(‘money’).increment(rand) %}
+Вы забрали {{rand}} монет`,
+        description: "Получить бонус",
+        deistvie: "1",
+        link: ["https://www.youtube.com/watch?v=7m0abqEykFQ", "https://youtu.be/7m0abqEykFQ", "7m0abqEykFQ", "https://discord.com/channels/940706681510318141/1139227534228205720"]
+    },
+    {
+        title: "Просмотр баланса участника и свой", 
+        code: `{% set targetMember2 = arguments.get(1) %}
+{% set targetMember = message.mentionedMembers[0] %}
+{% if targetMember2 == null %}
+Ваш баланс : {{ member.getAttribute('money')}} монет.
+{% else %} 
+{% if targetMember2 = = targetMember %}
+Баланс участника {{ targetMember }} : {{ targetMember.getAttribute('money') }} монет.
+{% else %}
+**Ошибка**
+{% endif %}{% endif %}`,
+        description: "Просмотр баланса участника и свой",
+        deistvie: "1",
+        link: ["https://www.youtube.com/watch?v=7m0abqEykFQ", "https://youtu.be/7m0abqEykFQ", "7m0abqEykFQ", "https://discord.com/channels/940706681510318141/1139227534228205720"]
+    }
+];
+    // Инициализация при загрузке страницы
+    document.addEventListener('DOMContentLoaded', () => {
+        renderCodes();
+        initSearch();
+        initModal();
+    });
+
+    // Рендер списка команд
+    function renderCodes(codes = codeExamples) {
+        const container = document.getElementById('codes-container');
+        container.innerHTML = '';
+
+        if (codes.length === 0) {
+            const emptyMsg = document.createElement('div');
+            emptyMsg.className = 'no-results';
+            emptyMsg.innerHTML = `
+                <!--<div style="font-size: 2rem;">😞</div>-->
+                <h3>Ничего не найдено</h3>
+                <p>Попробуйте изменить поисковый запрос</p>
+                <p>Если вы указали ссылку уберите</p>
+                <p>Все от и включая & и ?si</p>
+            `;
+            container.appendChild(emptyMsg);
+            return;
+        }
+
+        codes.forEach(cmd => {
+            const card = document.createElement('div');
+            card.className = 'code-card';
+            card.innerHTML = `
+                <div class="code-actions">
+                  
+                    <button class="btn preview-btn" data-id="${cmd.title}">Предпросмотр</button>
+                    
+                    <button class="btn copy-btn" data-code="${encodeURIComponent(cmd.code)}">Копировать</button>
+                    
+<!--                    <button class="btn download-btn" 
+                        data-filename="${sanitizeFileName(cmd.title)}" 
+                        data-code="${encodeURIComponent(cmd.code)}">
+                        Скачать
+                    </button>-->
+                </div>
+                <!--<h4>1</h4>-->
+                <h3>${cmd.title}</h3>
+                <p>${cmd.description}</p>
+                <p>Действие: ${cmd.deistvie}</p>
+                <!--<a href="${cmd.link}" class="code-link" target="_blank">Подробнее →</a>-->
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    // Инициализация поиска
+    function initSearch() {
+        const search = document.getElementById('code-search');
+        search.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            const filtered = codeExamples.filter(cmd => {
+                const searchString = [
+                    cmd.title,
+                    cmd.description,
+                    cmd.code,
+                    Array.isArray(cmd.link) ? cmd.link.join(' ') : cmd.link
+                ].join(' ').toLowerCase();
+                return searchString.includes(query);
+            });
+            renderCodes(filtered);
+        });
+    }
+
+    // Инициализация модального окна и обработчиков
+    function initModal() {
+        const modal = document.getElementById('preview-modal');
+        const closeBtn = modal.querySelector('.close');
+
+        document.addEventListener('click', (e) => {
+            // Предпросмотр
+            if (e.target.classList.contains('preview-btn')) {
+                const title = e.target.dataset.id;
+                const cmd = codeExamples.find(c => c.title === title);
+                if (cmd) {
+                    document.getElementById('preview-code').textContent = cmd.code;
+                    modal.style.display = 'block';
+                }
+            }
+
+            // Копирование
+            if (e.target.classList.contains('copy-btn')) {
+                const code = decodeURIComponent(e.target.dataset.code);
+                copyToClipboard(code);
+            }
+
+            // Скачивание
+            if (e.target.classList.contains('download-btn')) {
+                const code = decodeURIComponent(e.target.dataset.code);
+                const filename = `${e.target.dataset.filename}.txt`;
+                downloadAsTxt(code, filename);
+            }
+        });
+
+        // Закрытие модалки
+        closeBtn.onclick = () => modal.style.display = 'none';
+        window.onclick = (e) => e.target === modal && (modal.style.display = 'none');
+    }
+
+    // Вспомогательные функции
+    function sanitizeFileName(name) {
+        return name
+            .replace(/[^а-яА-ЯёЁa-zA-Z0-9\s_-]/g, '')
+            .replace(/\s+/g, '_')
+            .substring(0, 50);
+    }
+
+    function downloadAsTxt(content, filename) {
+        try {
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.style.display = 'none';
+            
+            document.body.appendChild(a);
+            a.click();
+            
+            setTimeout(() => {
+                URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            }, 100);
+            
+            showNotification(`✓ Файл ${filename} скачан!`);
+        } catch (err) {
+            showNotification('⚠ Ошибка при скачивании', true);
+            console.error('Download error:', err);
+        }
+    }
+
+    async function copyToClipboard(text) {
+        try {
+            await navigator.clipboard.writeText(text);
+            showNotification('✓ Код скопирован!');
+        } catch (err) {
+            showNotification('⚠ Ошибка копирования', true);
+        }
+    }
+
+    function showNotification(text, isError = false) {
+        const note = document.createElement('div');
+        note.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            border-radius: 8px;
+            background: ${isError ? '#ed4245' : '#43b581'};
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+        `;
+        note.textContent = text;
+        document.body.appendChild(note);
+        setTimeout(() => note.remove(), 2000);
+    }
+</script>
+</body>
+</html>
