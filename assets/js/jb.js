@@ -2,7 +2,63 @@
 async function loadCodeExamples() {
   // Прямое указание файлов с кодом
   const codeFiles = [
-    // ... (ваш исходный массив codeFiles без изменений)
+    {
+      title: "Получить бонус",
+      filename: "1/bonus.txt",
+      description: "Команда для получения ежедневного бонуса",
+      deistvie: "Действие: 1",
+      link: ['https://discord.com/channels/940706681510318141/1139227534228205720', 'https://www.youtube.com/watch?v=7m0abqEykFQ', 'https://youtube.com/watch?v=7m0abqEykFQ', 'https://youtu.be/7m0abqEykFQ', '7m0abqEykFQ' ]
+    },
+    {
+      title: "Просмотр баланса участника и свой",
+      filename: "1/balance.txt", 
+      description: "Команда для проверки баланса",
+      deistvie: "Действие: 1",
+      link: ['https://discord.com/channels/940706681510318141/1139227534228205720', 'https://www.youtube.com/watch?v=7m0abqEykFQ', 'https://youtube.com/watch?v=7m0abqEykFQ', 'https://youtu.be/7m0abqEykFQ', '7m0abqEykFQ' ]
+    },
+    {
+      title: "Устроится шахтёром",
+      filename: "2/устроится_шахтёром.txt",
+      description: "Устроится шахтёром",
+      deistvie: "Действие: 2",
+      link: ['https://discord.com/channels/940706681510318141/1139227933559505027', 'https://www.youtube.com/watch?v=8kNKljzhnIQ', 'https://youtube.com/watch?v=8kNKljzhnIQ', 'https://youtu.be/8kNKljzhnIQ', '8kNKljzhnIQ' ]
+    },
+    {
+      title: "Работать шахтёром",
+      filename: "2/работать_шахтёром.txt", 
+      description: "Работать шахтёром",
+      deistvie: "Действие: 2",
+      link: ['https://discord.com/channels/940706681510318141/1139227933559505027', 'https://www.youtube.com/watch?v=8kNKljzhnIQ', 'https://youtube.com/watch?v=8kNKljzhnIQ', 'https://youtu.be/8kNKljzhnIQ', '8kNKljzhnIQ' ]
+    },
+    {
+      title: "Уволиться с работы шахтёр",
+      filename: "2/увалится_с_работы_шахтёр.txt", 
+      description: "Уволиться с работы шахтёр",
+      deistvie: "Действие: 2",
+      link: ['https://discord.com/channels/940706681510318141/1139227933559505027', 'https://www.youtube.com/watch?v=8kNKljzhnIQ', 'https://youtube.com/watch?v=8kNKljzhnIQ', 'https://youtu.be/8kNKljzhnIQ', '8kNKljzhnIQ' ]
+    }
+    ,
+    {
+      title: "Положить монеты в банк",
+      filename: "3/положить_монеты_в_банк.txt",
+      description: "Положить монеты в банк",
+      deistvie: "Действие: 3",
+      link: ['https://discord.com/channels/940706681510318141/1139228394618359809', 'https://www.youtube.com/watch?v=tRVYH7RHyy8', 'https://youtube.com/watch?v=tRVYH7RHyy8', 'https://youtu.be/tRVYH7RHyy8', 'tRVYH7RHyy8' ]
+    },
+    {
+      title: "Снять монеты из банка",
+      filename: "3/снять_монеты_из_банка.txt", 
+      description: "Снять монеты из банка",
+      deistvie: "Действие: 3",
+      link: ['https://discord.com/channels/940706681510318141/1139228394618359809', 'https://www.youtube.com/watch?v=tRVYH7RHyy8', 'https://youtube.com/watch?v=tRVYH7RHyy8', 'https://youtu.be/tRVYH7RHyy8', 'tRVYH7RHyy8' ]
+    },
+    {
+      title: " Обновлённый баланс",
+      filename: "3/обновлённый_баланс.txt", 
+      description: " Обновлённый баланс",
+      deistvie: "Действие: 3",
+      link: ['https://discord.com/channels/940706681510318141/1139228394618359809', 'https://www.youtube.com/watch?v=tRVYH7RHyy8', 'https://youtube.com/watch?v=tRVYH7RHyy8', 'https://youtu.be/tRVYH7RHyy8', 'tRVYH7RHyy8' ]
+    }
   ];
   
   // Загружаем содержимое каждого файла
