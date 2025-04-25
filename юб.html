@@ -1,0 +1,67 @@
+<form action="https://docs.google.com/forms/d/e/1FAIpQLSelZZLv9vsuYc-rMX7bbLRPpwd0wlGeQLavy3zngJBIFiZ2BQ/formResponse"
+      target="_self"
+      id="bootstrapForm"
+      method="POST">
+    <fieldset>
+        <h2>Отзыв о сервере<br><small></small></h2>
+    </fieldset>
+
+    <!-- Поле для тега в Discord -->
+    <fieldset>
+        <legend for="2016338575">Тег в дискорде</legend>
+        <div class="form-group">
+            <input id="914830075" 
+                   type="text" 
+                   name="entry.914830075" 
+                   class="form-control">
+        </div>
+    </fieldset>
+
+    <!-- Поле для оценки -->
+    <fieldset>
+        <legend for="2047680714">Оценка</legend>
+        <div class="form-group">
+            <input id="676266443" 
+                   type="text" 
+                   name="entry.676266443" 
+                   class="form-control">
+        </div>
+    </fieldset>
+
+    <!-- Многострочный комментарий -->
+    <fieldset>
+        <legend for="1335175542">Отзыв</legend>
+        <div class="form-group">
+            <textarea id="1829194474" 
+                      name="entry.1829194474" 
+                      class="form-control"
+                      rows="5"          <!-- Количество строк по умолчанию -->
+                      placeholder="Напишите ваш отзыв здесь..."
+                      ></textarea>
+        </div>
+    </fieldset>
+
+    <input type="hidden" name="fvv" value="1">
+    <input type="hidden" name="fbzx" value="3378402741829597334">
+    <input type="hidden" name="pageHistory" value="0">
+
+    <input class="btn btn-primary" type="submit" value="Submit">
+</form>
+
+<!-- Скрипты остаются без изменений -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+
+<script>
+$('#bootstrapForm').submit(function (event) {
+    event.preventDefault()
+    var extraData = {}
+    $('#bootstrapForm').ajaxSubmit({
+        data: extraData,
+        dataType: 'jsonp',
+        error: function () {
+            alert('Форма успешно отправлена! Спасибо за ваш отзыв!')
+        }
+    })
+})
+</script>
