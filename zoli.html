@@ -1,152 +1,195 @@
-<!-- Добавляем стили Bootstrap и наши кастомные стили -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-<style>
-    /* Стили для кнопки открытия формы */
-    .feedback-button {
-        position: fixed;
-        right: -60px;
-        top: 50%;
-        transform: rotate(-90deg);
-        transform-origin: right bottom;
-        z-index: 1000;
-        transition: all 0.3s;
-    }
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма обратной связи</title>
+    
+    <!-- Стили -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Стили для кнопки */
+        .feedback-button {
+            position: fixed;
+            right: -75px;
+            top: 50%;
+            transform: rotate(-90deg) translateY(-50%);
+            transform-origin: right top;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+            border: none;
+            box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+        }
 
-    .feedback-button:hover {
-        right: -55px;
-    }
+        .feedback-button:hover {
+            right: -70px;
+            background: #0056b3;
+        }
 
-    /* Стили для формы */
-    .feedback-form {
-        position: fixed;
-        right: -400px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 380px;
-        background: #f8f9fa;
-        padding: 20px;
-        box-shadow: -2px 0 15px rgba(0,0,0,0.1);
-        border-radius: 5px 0 0 5px;
-        z-index: 1001;
-        transition: all 0.3s ease-in-out;
-    }
+        /* Стили формы */
+        .feedback-form {
+            position: fixed;
+            right: -400px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 380px;
+            background: white;
+            padding: 25px;
+            box-shadow: -2px 0 15px rgba(0,0,0,0.2);
+            border-radius: 8px 0 0 8px;
+            z-index: 1001;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-    .feedback-form.active {
-        right: 0;
-    }
+        .feedback-form.active {
+            right: 0;
+        }
 
-    /* Затемнение фона */
-    .overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.5);
-        z-index: 999;
-    }
+        /* Затемнение фона */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
 
-    /* Стили для кнопки закрытия */
-    .close-btn {
-        position: absolute;
-        right: 15px;
-        top: 10px;
-        font-size: 24px;
-        cursor: pointer;
-        color: #6c757d;
-    }
+        /* Кнопка закрытия */
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #6c757d;
+            transition: color 0.2s;
+        }
 
-    .close-btn:hover {
-        color: #495057;
-    }
-</style>
+        .close-btn:hover {
+            color: #495057;
+        }
 
-<!-- Кнопка для открытия формы -->
-<button class="btn btn-primary feedback-button">Оставить отзыв</button>
+        /* Дополнительные стили формы */
+        legend {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #343a40;
+        }
 
-<!-- Затемнение фона -->
-<div class="overlay"></div>
+        .form-control {
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            padding: 10px 15px;
+        }
 
-<!-- Форма отзыва -->
-<div class="feedback-form">
-    <span class="close-btn">&times;</span>
-    <form action="https://docs.google.com/forms/d/e/1FAIpQLSelZZLv9vsuYc-rMX7bbLRPpwd0wlGeQLavy3zngJBIFiZ2BQ/formResponse"
-          target="_self"
-          id="bootstrapForm"
-          method="POST">
-        <!-- Ваша существующая форма -->
-        <fieldset>
-            <h2>Отзыв о сервере<br><small></small></h2>
-        </fieldset>
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            font-weight: bold;
+            background: #007bff;
+            border: none;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
 
-        <fieldset>
-            <legend for="2016338575">Тег в дискорде</legend>
+    <!-- Кнопка открытия формы -->
+    <button class="feedback-button">📝 Оставить отзыв</button>
+
+    <!-- Затемнение фона -->
+    <div class="overlay"></div>
+
+    <!-- Сама форма -->
+    <div class="feedback-form">
+        <span class="close-btn">&times;</span>
+        <form action="https://docs.google.com/forms/d/e/1FAIpQLSelZZLv9vsuYc-rMX7bbLRPpwd0wlGeQLavy3zngJBIFiZ2BQ/formResponse"
+              target="_self"
+              id="bootstrapForm"
+              method="POST">
+            
+            <h2 class="mb-4">Отзыв о сервере</h2>
+
             <div class="form-group">
-                <input id="914830075" 
-                       type="text" 
+                <label>Ваш тег в Discord</label>
+                <input type="text" 
                        name="entry.914830075" 
-                       class="form-control">
+                       class="form-control"
+                       placeholder="Пример: User#1234"
+                       required>
             </div>
-        </fieldset>
 
-        <fieldset>
-            <legend for="2047680714">Оценка</legend>
             <div class="form-group">
-                <input id="676266443" 
-                       type="text" 
+                <label>Оценка (1-5)</label>
+                <input type="number" 
                        name="entry.676266443" 
-                       class="form-control">
+                       class="form-control"
+                       min="1" 
+                       max="5"
+                       required>
             </div>
-        </fieldset>
 
-        <fieldset>
-            <legend for="1335175542">Отзыв</legend>
             <div class="form-group">
-                <textarea id="1829194474" 
-                          name="entry.1829194474" 
+                <label>Ваш отзыв</label>
+                <textarea name="entry.1829194474" 
                           class="form-control"
-                          rows="5"
-                          placeholder="Напишите ваш отзыв здесь..."></textarea>
+                          rows="4"
+                          placeholder="Поделитесь вашим мнением..."
+                          required></textarea>
             </div>
-        </fieldset>
 
-        <input type="hidden" name="fvv" value="1">
-        <input type="hidden" name="fbzx" value="3378402741829597334">
-        <input type="hidden" name="pageHistory" value="0">
+            <input type="hidden" name="fvv" value="1">
+            <input type="hidden" name="fbzx" value="3378402741829597334">
+            <input type="hidden" name="pageHistory" value="0">
 
-        <input class="btn btn-primary" type="submit" value="Отправить">
-    </form>
-</div>
+            <button type="submit" class="btn btn-primary">Отправить отзыв</button>
+        </form>
+    </div>
 
-<!-- Скрипты -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <!-- Скрипты -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Открытие формы
+            $('.feedback-button').click(function() {
+                $('.feedback-form').addClass('active');
+                $('.overlay').fadeIn(300);
+            });
 
-<script>
-    // Обработчики открытия/закрытия формы
-    $('.feedback-button').click(function() {
-        $('.feedback-form').addClass('active');
-        $('.overlay').show();
-    });
-
-    $('.close-btn, .overlay').click(function() {
-        $('.feedback-form').removeClass('active');
-        $('.overlay').hide();
-    });
-
-    // Обработчик отправки формы
-    $('#bootstrapForm').submit(function (event) {
-        event.preventDefault();
-        var extraData = {};
-        $('#bootstrapForm').ajaxSubmit({
-            data: extraData,
-            dataType: 'jsonp',
-            error: function () {
-                alert('Форма успешно отправлена! Спасибо за ваш отзыв!');
+            // Закрытие формы
+            $('.close-btn, .overlay').click(function() {
                 $('.feedback-form').removeClass('active');
-                $('.overlay').hide();
-            }
+                $('.overlay').fadeOut(300);
+            });
+
+            // Обработка отправки формы
+            $('#bootstrapForm').submit(function(e) {
+                e.preventDefault();
+                $(this).ajaxSubmit({
+                    success: function() {
+                        alert('Спасибо! Ваш отзыв успешно отправлен!');
+                        $('.feedback-form').removeClass('active');
+                        $('.overlay').fadeOut(300);
+                        $('#bootstrapForm')[0].reset();
+                    },
+                    error: function() {
+                        alert('Ошибка при отправке. Попробуйте ещё раз.');
+                    }
+                });
+            });
         });
-    });
-</script>
+    </script>
+
+</body>
+</html>
