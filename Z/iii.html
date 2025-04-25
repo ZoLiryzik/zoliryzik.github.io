@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма отзывов ZoLiryzik</title>
+    <style>
+        /* Стили для кнопки */
+        .sidebar-button {
+            position: fixed;
+            right: -15px;
+            top: 50%;
+            transform: rotate(-90deg) translateY(-50%);
+            transform-origin: right top;
+            z-index: 10000;
+            padding: 12px 25px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+
+        .sidebar-button:hover {
+            right: -10px;
+            background: #0056b3;
+        }
+
+        /* Анимация пульсации */
+        @keyframes pulse {
+            0% { transform: rotate(-90deg) translateY(-50%) scale(1); }
+            50% { transform: rotate(-90deg) translateY(-50%) scale(1.05); }
+            100% { transform: rotate(-90deg) translateY(-50%) scale(1); }
+        }
+
+        /* Стили для контейнера формы */
+        .form-container {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 350px;
+            height: 100vh;
+            background: white;
+            box-shadow: -2px 0 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 9999;
+        }
+
+        .form-container.active {
+            right: 0;
+        }
+
+        /* Стилизация формы */
+        .form-container form {
+            margin-top: 20px;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+        fieldset {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            padding: 10px;
+        }
+
+        legend {
+            font-weight: bold;
+            padding: 0 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Кнопка для открытия формы -->
+    <button id="sidebarBtn" class="sidebar-button">📝 Оставить отзыв</button>
+
+    <!-- Контейнер формы -->
+    <div id="formContainer" class="form-container">
+        <form action="https://docs.google.com/forms/d/e/1FAIpQLSe7u2NHHh7S5n7h4mocDpOIiVlqZtgLKnzyEFU7SvhqQp7V2Q/formResponse"
+              target="_self"
+              id="bootstrapForm"
+              method="POST">
+            
+            <fieldset>
+                <h2>Отзывы ZoLiryzik COMMUNITY</h2>
+            </fieldset>
+
+            <fieldset>
+                <legend>Тег в дискорде</legend>
+                <div class="form-group">
+                    <input id="1599223660" 
+                           type="text" 
+                           name="entry.1599223660" 
+                           class="form-control"
+                           required
+                           placeholder="Пример: User#1234">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Оценка (1-5)</legend>
+                <div class="form-group">
+                    <input id="2092335419" 
+                           type="number" 
+                           name="entry.2092335419" 
+                           class="form-control"
+                           min="1"
+                           max="5"
+                           required
+                           placeholder="Введите число от 1 до 5">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Комментарий</legend>
+                <div class="form-group">
+                    <textarea id="1743679321" 
+                              name="entry.1743679321" 
+                              class="form-control"
+                              required
+                              rows="4"
+                              placeholder="Ваш комментарий..."></textarea>
+                </div>
+            </fieldset>
+
+            <input type="hidden" name="fvv" value="1">
+            <input type="hidden" name="fbzx" value="-3160373097437091624">
+            <input type="hidden" name="pageHistory" value="0">
+            <input class="btn btn-primary" type="submit" value="Отправить">
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        // Открытие/закрытие формы
+        $('#sidebarBtn').click(function(e) {
+            e.stopPropagation();
+            $('#formContainer').toggleClass('active');
+        });
+
+        // Закрытие формы при клике вне её области
+        $(document).click(function(e) {
+            if (!$(e.target).closest('#formContainer').length && 
+                !$(e.target).is('#sidebarBtn')) {
+                $('#formContainer').removeClass('active');
+            }
+        });
+
+        // Обработка отправки формы
+        $('#bootstrapForm').submit(function(event) {
+            event.preventDefault();
+            
+            // Проверка валидности формы
+            if (!this.checkValidity()) {
+                alert("Пожалуйста, заполните все обязательные поля правильно!");
+                return;
+            }
+
+            // Отправка данных
+            $(this).ajaxSubmit({
+                dataType: 'jsonp',
+                error: function() {
+                    alert('Спасибо за ваш отзыв! Форма отправлена.');
+                    $('#formContainer').removeClass('active');
+                    $('#bootstrapForm')[0].reset();
+                }
+            });
+        });
+    });
+    </script>
+
+</body>
+</html>
