@@ -1,0 +1,120 @@
+<style>
+    #myCustomForm {
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #f5f5f5;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    input, textarea, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+    
+    textarea {
+      height: 100px;
+      resize: vertical;
+    }
+    
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    
+    button:hover {
+      background: #0056b3;
+    }
+    
+    #successMessage {
+      display: none;
+      color: #155724;
+      background-color: #d4edda;
+      border-color: #c3e6cb;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 4px;
+    }
+    </style>
+    
+    <form id="myCustomForm" action="https://docs.google.com/forms/d/e/1FAIpQLScvK9pUW6xws_03zhtXiRhf9TajrQczUzpHszfg9CNl6RyCrQ/formResponse" method="POST">
+      <!-- Обязательные скрытые поля -->
+      <input type="hidden" name="fvv" value="1">
+      <input type="hidden" name="pageHistory" value="0">
+      <input type="hidden" name="fbzx" value="4996123908334259972">
+      <input type="hidden" name="submissionTimestamp" value="-1">
+      
+      <!-- Поля формы -->
+      <div class="form-group">
+        <label>Имя *</label>
+        <input type="text" name="entry.1633920210" required>
+      </div>
+    
+      <div class="form-group">
+        <label>Дискорд *</label>
+        <input type="email" name="entry.227649005" required>
+      </div>
+    
+      <div class="form-group">
+        <label>Ник-майна *</label>
+        <textarea name="entry.790080973" required></textarea>
+      </div>
+    
+      <div class="form-group">
+        <label>Комментарии</label>
+        <textarea name="entry.1846923513"></textarea>
+      </div>
+    
+      <button type="submit">Отправить</button>
+    </form>
+    
+    <div id="successMessage">Спасибо! Данные успешно отправлены.</div>
+    
+    <script>
+    document.getElementById("myCustomForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      // Добавляем timestamp
+      const timestamp = new Date().getTime();
+      const hiddenTimestamp = document.createElement('input');
+      hiddenTimestamp.type = 'hidden';
+      hiddenTimestamp.name = 'entry.111111111'; // Замените на реальный entry ID для timestamp
+      hiddenTimestamp.value = timestamp;
+      this.appendChild(hiddenTimestamp);
+    
+      // Блокируем кнопку отправки
+      const submitBtn = this.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Отправка...';
+    
+      fetch(this.action, {
+        method: "POST",
+        body: new FormData(this),
+        mode: "no-cors"
+      })
+      .then(() => {
+        document.getElementById("successMessage").style.display = "block";
+        this.reset();
+        setTimeout(() => {
+          document.getElementById("successMessage").style.display = "none";
+        }, 5000);
+      })
+      .catch(error => {
+        console.error("Ошибка:", error);
+        alert('Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз.');
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Отправить';
+      });
+    });
+    </script>
