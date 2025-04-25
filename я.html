@@ -1,0 +1,193 @@
+<style>
+.feedback-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    max-width: 280px;
+    font-family: Arial, sans-serif;
+}
+
+.feedback-toggle {
+    background: #4A90E2;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.3s ease;
+}
+
+.feedback-toggle:hover {
+    transform: translateY(-2px);
+}
+
+.feedback-form {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    padding: 15px;
+    margin-top: 10px;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.form-visible {
+    display: block;
+    opacity: 1;
+}
+
+.rating-stars {
+    display: flex;
+    gap: 5px;
+    margin: 8px 0;
+}
+
+.rating-star {
+    cursor: pointer;
+    font-size: 24px;
+    color: #ddd;
+    transition: color 0.2s;
+}
+
+.rating-star.active {
+    color: #FFD700;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.form-control {
+    margin: 8px 0;
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.submit-btn {
+    background: #4A90E2;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.submit-btn:hover {
+    background: #357ABD;
+}
+</style>
+
+<div class="feedback-container">
+    <div class="feedback-toggle" onclick="toggleFeedback()">
+        <span>💬</span>
+        <span>Оставить отзыв</span>
+    </div>
+    
+    <form id="feedbackForm" class="feedback-form" 
+          action="https://docs.google.com/forms/d/e/1FAIpQLSelZZLv9vsuYc-rMX7bbLRPpwd0wlGeQLavy3zngJBIFiZ2BQ/formResponse"
+          method="POST">
+        
+        <span class="close-btn" onclick="toggleFeedback()">×</span>
+        
+        <input type="text" 
+               class="form-control"
+               name="entry.914830075"
+               placeholder="Ваш Discord тег"
+               required>
+        
+        <div class="rating-stars">
+            <span class="rating-star" onclick="setRating(5)">★</span>
+            <span class="rating-star" onclick="setRating(4)">★</span>
+            <span class="rating-star" onclick="setRating(3)">★</span>
+            <span class="rating-star" onclick="setRating(2)">★</span>
+            <span class="rating-star" onclick="setRating(1)">★</span>
+        </div>
+        <input type="hidden" name="entry.676266443" id="ratingValue" required>
+        
+        <textarea class="form-control"
+                  name="entry.145528047"
+                  rows="3"
+                  placeholder="Ваш комментарий..."
+                  required></textarea>
+        
+        <input type="hidden" name="fvv" value="1">
+        <input type="hidden" name="fbzx" value="-3978791611355424398">
+        <input type="hidden" name="pageHistory" value="0">
+        
+        <button type="submit" class="submit-btn">Отправить</button>
+    </form>
+</div>
+
+<script>
+let currentRating = 0;
+
+function toggleFeedback() {
+    const form = document.getElementById('feedbackForm');
+    form.classList.toggle('form-visible');
+}
+
+function setRating(rating) {
+    currentRating = rating;
+    const stars = document.querySelectorAll('.rating-star');
+    stars.forEach((star, index) => {
+        star.classList.toggle('active', index < rating);
+    });
+    document.getElementById('ratingValue').value = rating;
+}
+
+document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = this;
+    
+    // Отправка формы через Fetch API
+    fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        mode: 'no-cors'
+    }).then(() => {
+        showConfirmation();
+        form.reset();
+        currentRating = 0;
+        document.querySelectorAll('.rating-star').forEach(star => {
+            star.classList.remove('active');
+        });
+        toggleFeedback();
+    }).catch(() => {
+        alert('Ошибка отправки. Попробуйте еще раз.');
+    });
+});
+
+function showConfirmation() {
+    const confirmation = document.createElement('div');
+    confirmation.textContent = 'Спасибо за ваш отзыв! ❤️';
+    confirmation.style = `
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        background: #4A90E2;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    `;
+    document.body.appendChild(confirmation);
+    
+    setTimeout(() => {
+        confirmation.remove();
+    }, 3000);
+}
+</script>
