@@ -1,0 +1,152 @@
+<!-- Добавляем стили Bootstrap и наши кастомные стили -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    /* Стили для кнопки открытия формы */
+    .feedback-button {
+        position: fixed;
+        right: -60px;
+        top: 50%;
+        transform: rotate(-90deg);
+        transform-origin: right bottom;
+        z-index: 1000;
+        transition: all 0.3s;
+    }
+
+    .feedback-button:hover {
+        right: -55px;
+    }
+
+    /* Стили для формы */
+    .feedback-form {
+        position: fixed;
+        right: -400px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 380px;
+        background: #f8f9fa;
+        padding: 20px;
+        box-shadow: -2px 0 15px rgba(0,0,0,0.1);
+        border-radius: 5px 0 0 5px;
+        z-index: 1001;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .feedback-form.active {
+        right: 0;
+    }
+
+    /* Затемнение фона */
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 999;
+    }
+
+    /* Стили для кнопки закрытия */
+    .close-btn {
+        position: absolute;
+        right: 15px;
+        top: 10px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #6c757d;
+    }
+
+    .close-btn:hover {
+        color: #495057;
+    }
+</style>
+
+<!-- Кнопка для открытия формы -->
+<button class="btn btn-primary feedback-button">Оставить отзыв</button>
+
+<!-- Затемнение фона -->
+<div class="overlay"></div>
+
+<!-- Форма отзыва -->
+<div class="feedback-form">
+    <span class="close-btn">&times;</span>
+    <form action="https://docs.google.com/forms/d/e/1FAIpQLSelZZLv9vsuYc-rMX7bbLRPpwd0wlGeQLavy3zngJBIFiZ2BQ/formResponse"
+          target="_self"
+          id="bootstrapForm"
+          method="POST">
+        <!-- Ваша существующая форма -->
+        <fieldset>
+            <h2>Отзыв о сервере<br><small></small></h2>
+        </fieldset>
+
+        <fieldset>
+            <legend for="2016338575">Тег в дискорде</legend>
+            <div class="form-group">
+                <input id="914830075" 
+                       type="text" 
+                       name="entry.914830075" 
+                       class="form-control">
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend for="2047680714">Оценка</legend>
+            <div class="form-group">
+                <input id="676266443" 
+                       type="text" 
+                       name="entry.676266443" 
+                       class="form-control">
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend for="1335175542">Отзыв</legend>
+            <div class="form-group">
+                <textarea id="1829194474" 
+                          name="entry.1829194474" 
+                          class="form-control"
+                          rows="5"
+                          placeholder="Напишите ваш отзыв здесь..."></textarea>
+            </div>
+        </fieldset>
+
+        <input type="hidden" name="fvv" value="1">
+        <input type="hidden" name="fbzx" value="3378402741829597334">
+        <input type="hidden" name="pageHistory" value="0">
+
+        <input class="btn btn-primary" type="submit" value="Отправить">
+    </form>
+</div>
+
+<!-- Скрипты -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+
+<script>
+    // Обработчики открытия/закрытия формы
+    $('.feedback-button').click(function() {
+        $('.feedback-form').addClass('active');
+        $('.overlay').show();
+    });
+
+    $('.close-btn, .overlay').click(function() {
+        $('.feedback-form').removeClass('active');
+        $('.overlay').hide();
+    });
+
+    // Обработчик отправки формы
+    $('#bootstrapForm').submit(function (event) {
+        event.preventDefault();
+        var extraData = {};
+        $('#bootstrapForm').ajaxSubmit({
+            data: extraData,
+            dataType: 'jsonp',
+            error: function () {
+                alert('Форма успешно отправлена! Спасибо за ваш отзыв!');
+                $('.feedback-form').removeClass('active');
+                $('.overlay').hide();
+            }
+        });
+    });
+</script>
