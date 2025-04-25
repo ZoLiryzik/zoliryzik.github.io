@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма обратной связи</title>
+    
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Стили остаются без изменений */
+        .feedback-button {
+            position: fixed;
+            right: -75px;
+            top: 50%;
+            transform: rotate(-90deg) translateY(-50%);
+            transform-origin: right top;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+            border: none;
+            box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+        }
+
+        .feedback-form {
+            /* ... остальные стили ... */
+        }
+    </style>
+</head>
+<body>
+
+    <button class="feedback-button">📝 Оставить отзыв</button>
+    <div class="overlay"></div>
+
+    <div class="feedback-form">
+        <span class="close-btn">&times;</span>
+        <form id="bootstrapForm" method="POST">
+            
+            <h2 class="mb-4">Отзыв о сервере</h2>
+
+            <div class="form-group">
+                <label>Ваш тег в Discord</label>
+                <input type="text" 
+                       name="entry.914830075" 
+                       id="discordTag"
+                       class="form-control"
+                       placeholder="Пример: User#1234"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Оценка (1-5)</label>
+                <input type="number" 
+                       name="entry.676266443" 
+                       id="rating"
+                       class="form-control"
+                       min="1" 
+                       max="5"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Ваш отзыв</label>
+                <textarea name="entry.1829194474" 
+                          id="feedbackText"
+                          class="form-control"
+                          rows="4"
+                          placeholder="Поделитесь вашим мнением..."
+                          required></textarea>
+            </div>
+
+            <input type="hidden" name="fvv" value="1">
+            <input type="hidden" name="fbzx" value="3378402741829597334">
+            <input type="hidden" name="pageHistory" value="0">
+
+            <button type="submit" class="btn btn-primary">Отправить отзыв</button>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Открытие/закрытие формы
+            $('.feedback-button').click(() => {
+                $('.feedback-form').addClass('active');
+                $('.overlay').fadeIn(300);
+            });
+
+            $('.close-btn, .overlay').click(() => {
+                $('.feedback-form').removeClass('active');
+                $('.overlay').fadeOut(300);
+            });
+
+            // Валидация и отправка
+            $('#bootstrapForm').submit(function(e) {
+                e.preventDefault();
+                
+                // Ручная валидация
+                const discordTag = $('#discordTag').val().trim();
+                const rating = $('#rating').val();
+                const feedback = $('#feedbackText').val().trim();
+
+                if(!discordTag || !rating || !feedback) {
+                    alert('Заполните все обязательные поля!');
+                    return;
+                }
+
+                // Показать данные перед отправкой
+                console.log('Отправляемые данные:', {
+                    discordTag,
+                    rating,
+                    feedback
+                });
+
+                // Отправка формы
+                $(this).ajaxSubmit({
+                    url: 'https://docs.google.com/forms/d/e/1FAIpQLSelZZLv9vsuYc-rMX7bbLRPpwd0wlGeQLavy3zngJBIFiZ2BQ/formResponse',
+                    type: 'POST',
+                    dataType: 'xml', // Формат ответа Google Forms
+                    success: function(res) {
+                        if($(res).find('div.errorbox-good').length) {
+                            alert('Спасибо! Ваш отзыв успешно отправлен!');
+                            $('#bootstrapForm')[0].reset();
+                            $('.feedback-form').removeClass('active');
+                            $('.overlay').fadeOut(300);
+                        } else {
+                            alert('Ошибка при отправке формы!');
+                        }
+                    },
+                    error: function() {
+                        alert('Произошла ошибка сети');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
