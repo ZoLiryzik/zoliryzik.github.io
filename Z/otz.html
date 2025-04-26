@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Данные из Google Таблиц</title>
+    <style>
+        /* Стили для таблицы */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .data-table th, .data-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .data-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .data-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .data-table tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <div id="data-container"></div>
+
+    <script>
+        // Настройки (замените на свои)
+        const SHEET_ID = '1f2Ka0lWqId-KAZBggq3tDD-WHy_Ggu-0X8_CpZiB7IM'; // Из URL: docs.google.com/spreadsheets/d/[ЭТО_ID]/edit
+        const SHEET_NAME = 'Ответы'; // Название листа
+
+        // URL для запроса данных
+        const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
+
+        // Загрузка данных
+        fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                // Обработка JSON
+                const parsedData = JSON.parse(data.substr(47).slice(0, -2));
+                
+                // Создание таблицы
+                let html = `
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                ${parsedData.table.cols.map(col => `<th>${col.label}</th>`).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${parsedData.table.rows.map(row => `
+                                <tr>
+                                    ${row.c.map(cell => `
+                                        <td>${cell?.v ?? ''}</td>
+                                    `).join('')}
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+
+                // Вставка в HTML
+                document.getElementById('data-container').innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+                document.getElementById('data-container').innerHTML = 
+                    '<p style="color: red">Ошибка загрузки данных</p>';
+            });
+    </script>
+</body>
+</html>
