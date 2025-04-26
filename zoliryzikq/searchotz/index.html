@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Поиск отзывов - ZoLiryzik Community</title>
+  <link rel="stylesheet" href="https://zoliryzik.ru/assets/css/main.css">
+  <style>
+    .search-page {
+        padding: 40px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .search-box {
+        position: relative;
+        margin-bottom: 40px;
+    }
+
+    #search-input {
+        width: 100%;
+        padding: 15px 20px;
+        font-size: 18px;
+        border: 2px solid #5865F2;
+        border-radius: 25px;
+        background: #2C2F33;
+        color: white;
+        transition: all 0.3s;
+    }
+
+    #search-input:focus {
+        outline: none;
+        box-shadow: 0 0 15px rgba(88, 101, 242, 0.3);
+    }
+
+    .results-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        padding: 20px 0;
+    }
+
+    .comment {
+        background: #2C2F33;
+        border-radius: 10px;
+        padding: 20px;
+        border: 1px solid #40444B;
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .no-results {
+        text-align: center;
+        color: #B9BBBE;
+        font-size: 18px;
+        padding: 40px 0;
+    }
+
+    .search-info {
+        color: #B9BBBE;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header class="main-banner">
+    <!-- Навигация как в основном шаблоне -->
+    <nav class="nav-buttons">
+      <a href="/" class="nav-button">
+        <svg>...</svg>
+        <span>Главная</span>
+      </a>
+      <a href="/feedback.html" class="nav-button active">
+        <svg>...</svg>
+        <span>Поиск отзывов</span>
+      </a>
+    </nav>
+  </header>
+
+  <main class="search-page">
+    <h1>Поиск по отзывам</h1>
+    <div class="search-box">
+      <input type="text" id="search-input" 
+             placeholder="Введите ключевые слова или имя автора...">
+    </div>
+    
+    <div class="search-info">
+      Найдено <span id="results-count">0</span> отзывов
+    </div>
+
+    <div class="results-container" id="results-container">
+      <div class="no-results">Начните поиск...</div>
+    </div>
+  </main>
+
+<script>
+const SHEET_ID = '1f2Ka0lWqId-KAZBggq3tDD-WHy_Ggu-0X8_CpZiB7IM';
+let allComments = [];
+
+function initSearch() {
+    const searchInput = document.getElementById('search-input');
+    const resultsContainer = document.getElementById('results-container');
+    const resultsCount = document.getElementById('results-count');
+
+    function debounce(func, timeout = 300) {
+        let timer;
+        return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => func.apply(this, args), timeout);
+        };
+    }
+
+    function searchComments() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        let filtered = allComments;
+
+        if(searchTerm) {
+            filtered = allComments.filter(comment => {
+                return comment.text.toLowerCase().includes(searchTerm) || 
+                       comment.author.toLowerCase().includes(searchTerm);
+            });
+        }
+
+        updateResults(filtered);
+    }
+
+    function updateResults(comments) {
+        resultsContainer.innerHTML = comments.length ? '' : 
+            '<div class="no-results">Ничего не найдено</div>';
+        
+        resultsCount.textContent = comments.length;
+
+        comments.forEach(comment => {
+            const div = document.createElement('div');
+            div.className = 'comment';
+            div.innerHTML = `
+                <div class="comment-header">
+                    <div class="comment-author">${comment.author}</div>
+                    <div class="comment-date">${comment.date}</div>
+                </div>
+                <div class="comment-text">${comment.text}</div>
+                ${comment.rating ? 
+                    `<div class="comment-rating">★ ${comment.rating}/5</div>` : ''}
+            `;
+            resultsContainer.appendChild(div);
+        });
+    }
+
+    searchInput.addEventListener('input', debounce(searchComments));
+}
+
+function loadData() {
+    fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`)
+        .then(r => r.text())
+        .then(t => {
+            try {
+                const json = JSON.parse(t.substring(47).slice(0, -2));
+                processData(json.table);
+            } catch(e) {
+                console.error('Ошибка данных:', e);
+                showError();
+            }
+        })
+        .catch(e => {
+            console.error('Ошибка сети:', e);
+            showError();
+        });
+}
+
+function processData(data) {
+    if (!data.rows || data.rows.length <= 1) {
+        showError('Пока нет отзывов');
+        return;
+    }
+
+    allComments = data.rows.reverse().map(row => {
+        const [dateCol, authorCol, ratingCol, textCol] = row.c;
+        return {
+            date: dateCol?.f || '',
+            author: authorCol?.v || 'Аноним',
+            rating: ratingCol?.v ? Math.round(ratingCol.v) : null,
+            text: textCol?.v || ''
+        };
+    });
+
+    initSearch();
+}
+
+function showError(message = 'Ошибка загрузки данных') {
+    const container = document.getElementById('results-container');
+    container.innerHTML = `<div class="no-results">${message}</div>`;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadData();
+});
+</script>
+</body>
+</html>
