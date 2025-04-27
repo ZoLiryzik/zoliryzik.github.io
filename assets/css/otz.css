@@ -1,0 +1,89 @@
+        /* Стили для кнопки */
+        .sidebar-button {
+            position: fixed;
+            right: -15px;
+            top: 50%;
+            transform: rotate(-90deg) translateY(-50%);
+            transform-origin: right top;
+            z-index: 10000;
+            padding: 12px 25px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+            font-size: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+
+        .sidebar-button:hover {
+            right: -10px;
+            background: #0056b3;
+        }
+
+        /* Анимация пульсации */
+        @keyframes pulse {
+            0% { transform: rotate(-90deg) translateY(-50%) scale(1); }
+            50% { transform: rotate(-90deg) translateY(-50%) scale(1.05); }
+            100% { transform: rotate(-90deg) translateY(-50%) scale(1); }
+        }
+
+        /* Стили для контейнера формы */
+        .form-container {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 350px;
+            height: 100vh;
+            background: #23272A;
+            box-shadow: -2px 0 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 9999;
+        }
+
+        .form-container.active {
+            right: 0;
+        }
+
+        /* Стилизация формы */
+        .form-container form {
+            margin-top: 20px;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+        fieldset {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            padding: 10px;
+        }
+
+        legend {
+            font-weight: bold;
+            padding: 0 5px;
+        }
