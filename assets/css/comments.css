@@ -1,0 +1,83 @@
+.feed-container {
+    width: 100%;
+    background: #23272A;
+    border-top: 2px solid #eee;
+    overflow-x: hidden !important;
+    padding: 40px 0;
+    margin-top: 60px;
+}
+
+.comments-container {
+  display: inline-flex;
+  gap: 15px;
+  padding: 0 20px;
+  will-change: nowrap;
+  will-change: transform;
+  align-items: stretch; /* Равная высота элементов */
+}
+
+.comment {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    height: 280px; /* Фиксированная высота */
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    border: 1px solid #eee;
+    margin: 10px;
+    box-sizing: border-box; /* Учитываем padding в ширине */
+}
+
+.comment-author {
+    font-weight: 600;
+    color: var(--dark-accent);
+    margin: 0;
+    padding: 0;
+}
+
+.comment-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    gap: 4px;
+}
+
+.comment-text {
+  flex: 1; /* Занимаем все доступное пространство */
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-y: auto; /* Добавляем скролл при необходимости */
+  padding-right: 8px; /* Отступ для скролла */
+  margin: 10px 0;
+}
+
+.comment-rating {
+    color: #ffc107;
+    font-weight: bold;
+    margin-top: auto; /* Прижимаем к низу */
+    font-size: 14px;
+    flex-shrink: 0; /* Запрещаем сжатие */
+}
+
+/* Стили для скролла */
+.comment-text::-webkit-scrollbar {
+  width: 6px;
+}
+
+.comment-text::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.1);
+}
+
+.comment-text::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+.comment-date {
+  font-size: 0.8em;
+  color: #99aab5;
+  opacity: 0.8;
+}
