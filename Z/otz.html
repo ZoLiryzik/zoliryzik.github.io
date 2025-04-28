@@ -3,31 +3,65 @@
 <head>
     <title>Данные из Google Таблиц</title>
     <style>
+        /* Общие стили для темной темы */
+        body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
         /* Стили для таблицы */
         .data-table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
-            font-family: Arial, sans-serif;
+            table-layout: fixed;
+            background-color: #2d2d2d;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
 
         .data-table th, .data-table td {
             padding: 12px;
-            border: 1px solid #ddd;
+            border: 1px solid #404040;
             text-align: left;
+            white-space: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .data-table th {
-            background-color: #f8f9fa;
+            background-color: #333333;
             font-weight: bold;
+            color: #ffffff;
         }
 
         .data-table tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: #262626;
         }
 
         .data-table tr:hover {
-            background-color: #f1f1f1;
+            background-color: #3a3a3a;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Стиль для контейнера */
+        #data-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Стиль для сообщения об ошибке */
+        .error-message {
+            color: #ff6666;
+            padding: 20px;
+            border: 1px solid #ff4444;
+            border-radius: 4px;
+            margin: 20px;
+            background-color: #331111;
         }
     </style>
 </head>
@@ -36,8 +70,8 @@
 
     <script>
         // Настройки (замените на свои)
-        const SHEET_ID = '1f2Ka0lWqId-KAZBggq3tDD-WHy_Ggu-0X8_CpZiB7IM'; // Из URL: docs.google.com/spreadsheets/d/[ЭТО_ID]/edit
-        const SHEET_NAME = 'Ответы'; // Название листа
+        const SHEET_ID = '1f2Ka0lWqId-KAZBggq3tDD-WHy_Ggu-0X8_CpZiB7IM';
+        const SHEET_NAME = 'Ответы';
 
         // URL для запроса данных
         const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
@@ -46,43 +80,44 @@
         fetch(url)
             .then(response => response.text())
             .then(data => {
-                // Обработка JSON
                 const parsedData = JSON.parse(data.substr(47).slice(0, -2));
-                
-                // Создание таблицы
                 let table = document.createElement('table');
                 table.classList.add('data-table');
                 
-                // Создание заголовка таблицы
+                // Заголовок таблицы
                 let thead = document.createElement('thead');
                 let headerRow = document.createElement('tr');
                 parsedData.table.cols.forEach(col => {
                     let th = document.createElement('th');
-                    th.textContent = col.label; // Защищаем от XSS, используем textContent
+                    th.textContent = col.label;
                     headerRow.appendChild(th);
                 });
                 thead.appendChild(headerRow);
                 table.appendChild(thead);
 
-                // Создание тела таблицы
+                // Тело таблицы
                 let tbody = document.createElement('tbody');
                 parsedData.table.rows.forEach(row => {
                     let tr = document.createElement('tr');
                     row.c.forEach(cell => {
                         let td = document.createElement('td');
-                        td.textContent = cell?.v ?? ''; // Защищаем от XSS, используем textContent
+                        td.textContent = cell?.v ?? '';
                         tr.appendChild(td);
                     });
                     tbody.appendChild(tr);
                 });
                 table.appendChild(tbody);
 
-                // Вставка таблицы в контейнер
                 document.getElementById('data-container').appendChild(table);
             })
             .catch(error => {
                 console.error('Ошибка:', error);
-                document.getElementById('data-container').innerHTML = 
-                    '<p style="color: red">Ошибка загрузки данных</p>';
+                const errorContainer = document.getElementById('data-container');
+                errorContainer.innerHTML = 
+                    `<div class="error-message">
+                        ⚠️ Ошибка загрузки данных. Пожалуйста, попробуйте позже.
+                    </div>`;
             });
     </script>
+</body>
+</html>
