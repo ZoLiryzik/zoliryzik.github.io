@@ -98,14 +98,33 @@ function processData(data) {
         const [dateCol, authorCol, ratingCol, textCol] = row.c;
         const comment = document.createElement('div');
         comment.className = 'comment';
-        comment.innerHTML = `
-            <div class="comment-header">
-                <div class="comment-author">${authorCol?.v || 'Аноним'}</div>
-                <div class="comment-date">${dateCol?.f || ''}</div>
-            </div>
-            <div class="comment-text">${textCol?.v || ''}</div>
-            ${ratingCol?.v ? `<div class="comment-rating">★ ${Math.round(ratingCol.v)}/5</div>` : ''}
-        `;
+
+        // Используем textContent для предотвращения XSS
+        const author = document.createElement('div');
+        author.className = 'comment-author';
+        author.textContent = authorCol?.v || 'Аноним';
+
+        const date = document.createElement('div');
+        date.className = 'comment-date';
+        date.textContent = dateCol?.f || '';
+
+        const commentText = document.createElement('div');
+        commentText.className = 'comment-text';
+        commentText.textContent = textCol?.v || '';
+
+        const rating = document.createElement('div');
+        rating.className = 'comment-rating';
+        if (ratingCol?.v) {
+            rating.textContent = `★ ${Math.round(ratingCol.v)}/5`;
+        }
+
+        comment.appendChild(author);
+        comment.appendChild(date);
+        comment.appendChild(commentText);
+        if (ratingCol?.v) {
+            comment.appendChild(rating);
+        }
+
         return comment;
     });
 
