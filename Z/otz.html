@@ -50,27 +50,35 @@
                 const parsedData = JSON.parse(data.substr(47).slice(0, -2));
                 
                 // Создание таблицы
-                let html = `
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                ${parsedData.table.cols.map(col => `<th>${col.label}</th>`).join('')}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${parsedData.table.rows.map(row => `
-                                <tr>
-                                    ${row.c.map(cell => `
-                                        <td>${cell?.v ?? ''}</td>
-                                    `).join('')}
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
-                `;
+                let table = document.createElement('table');
+                table.classList.add('data-table');
+                
+                // Создание заголовка таблицы
+                let thead = document.createElement('thead');
+                let headerRow = document.createElement('tr');
+                parsedData.table.cols.forEach(col => {
+                    let th = document.createElement('th');
+                    th.textContent = col.label; // Защищаем от XSS, используем textContent
+                    headerRow.appendChild(th);
+                });
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
 
-                // Вставка в HTML
-                document.getElementById('data-container').innerHTML = html;
+                // Создание тела таблицы
+                let tbody = document.createElement('tbody');
+                parsedData.table.rows.forEach(row => {
+                    let tr = document.createElement('tr');
+                    row.c.forEach(cell => {
+                        let td = document.createElement('td');
+                        td.textContent = cell?.v ?? ''; // Защищаем от XSS, используем textContent
+                        tr.appendChild(td);
+                    });
+                    tbody.appendChild(tr);
+                });
+                table.appendChild(tbody);
+
+                // Вставка таблицы в контейнер
+                document.getElementById('data-container').appendChild(table);
             })
             .catch(error => {
                 console.error('Ошибка:', error);
@@ -78,5 +86,3 @@
                     '<p style="color: red">Ошибка загрузки данных</p>';
             });
     </script>
-</body>
-</html>
