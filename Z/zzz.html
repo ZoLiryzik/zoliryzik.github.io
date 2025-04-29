@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Данные из Google Таблиц</title>
+    <style>
+        :root {
+            --bg: #1a1a1a;
+            --text: #e0e0e0;
+            --accent: #ff4444;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: system-ui, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: #2d2d2d;
+        }
+        .data-table th, .data-table td {
+            padding: 1rem;
+            border: 1px solid #404040;
+            text-align: left;
+        }
+        .data-table th {
+            background: #333;
+            font-weight: 600;
+        }
+        .security-alert {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #331111;
+            color: var(--accent);
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 2px solid var(--accent);
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <div id="data-container"></div>
+
+    <script>
+        (() => {
+            // Исправленная конфигурация домена
+            const SECURE = (() => {
+                const domainCipher = [
+                    [104,116,116,112,115,58,47,47].map(c => String.fromCharCode(c)).join(''), // "https://"
+                    atob('em9saXJ5emk='), // "zoliryzi"
+                    'k.ru'.split('').reverse().join('').replace('ur.k','k.ru') // "k.ru"
+                ];
+
+                const sheetCipher = [
+                    atob('MWYyS2EwbFdxSWQ='),
+                    [45,75,65,90].map(c => String.fromCharCode(c)).join(''),
+                    'Bggq3tDD-WHy_Ggu-0X8_CpZiB7IM'
+                        .split('_').join('')
+                        .replace(/-\w{3}/, '')
+                ];
+
+                return {
+                    DOMAIN: domainCipher.join(''), // https://zoliryzik.ru
+                    SHEET: {
+                        ID: sheetCipher.join(''),
+                        NAME: 'Ответы'
+                    }
+                };
+            })();
+
+            // Проверка домена
+            if (location.origin !== SECURE.DOMAIN) {
+                document.body.innerHTML = `
+                    <div class="security-alert">
+                        🔒 Доступ разрешен только с: 
+                        <a href="${SECURE.DOMAIN}" 
+                           style="color: #fff; text-decoration: none;">
+                            ${SECURE.DOMAIN}
+                        </a>
+                    </div>
+                `;
+                throw new Error('Domain security violation');
+            }
+
+            // Система безопасности
+            const security = {
+                sanitize: text => {
+                    const div = document.createElement('div');
+                    div.textContent = text;
+                    return div.innerHTML
+                        .replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;');
+                }
+            };
+
+            // Загрузчик данных
+            const loadData = async () => {
+                try {
+                    const endpoint = `https://docs.google.com/spreadsheets/d/${
+                        SECURE.SHEET.ID}/gviz/tq?tqx=out:json&sheet=${
+                        encodeURIComponent(SECURE.SHEET.NAME)}`;
+
+                    const response = await fetch(endpoint);
+                    console()
+                    if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
+                    
+                    const raw = await response.text();
+                    const json = JSON.parse(raw.match(/.*?({.*}).*/)[1]);
+
+                    const buildTable = () => {
+                        const table = document.createElement('table');
+                        table.className = 'data-table';
+
+                        // Заголовки
+                        const head = json.table.cols.reduce((acc, col) => {
+                            const th = document.createElement('th');
+                            th.textContent = security.sanitize(col.label);
+                            acc.appendChild(th);
+                            return acc;
+                        }, document.createElement('thead'));
+
+                        // Данные
+                        const body = json.table.rows.reduce((acc, row) => {
+                            const tr = document.createElement('tr');
+                            row.c.forEach(cell => {
+                                const td = document.createElement('td');
+                                td.textContent = cell?.v ? security.sanitize(cell.v) : '';
+                                tr.appendChild(td);
+                            });
+                            acc.appendChild(tr);
+                            return acc;
+                        }, document.createElement('tbody'));
+
+                        table.append(head, body);
+                        return table;
+                    };
+
+                    document.getElementById('data-container').appendChild(buildTable());
+
+                } catch (error) {
+                    document.getElementById('data-container').innerHTML = 
+                        `<div class="security-alert">⚠️ ${security.sanitize(error.message)}</div>`;
+                }
+            };
+
+            // Инициализация
+            document.addEventListener('DOMContentLoaded', () => {
+                loadData();
+                Object.freeze(SECURE);
+            });
+
+        })();
+    </script>
+</body>
+</html>
