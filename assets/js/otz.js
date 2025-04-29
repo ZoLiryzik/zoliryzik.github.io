@@ -15,7 +15,7 @@ $(document).ready(function() {
 
     
   // Проверяем, совпадает ли текущий домен с оригиналом
-  const originalDomain = "https://ваш_домен.ru"; // Замените на ваш домен, например: "https://сайт.ru"
+  const originalDomain = "https://zoliryzik.ru"; // Замените на ваш домен, например: "https://сайт.ru"
 
   if (window.location.origin !== originalDomain) {
     // Показываем предупреждение только если домен не оригинальный
