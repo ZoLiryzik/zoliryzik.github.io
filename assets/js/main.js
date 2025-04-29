@@ -1,4 +1,4 @@
-// ======================= ГЛОБАЛЬНЫЕ НАСТРОЙКИ =======================
+
 const APP_CONFIG = {
   news: {
     containerId: 'news-container',
@@ -31,7 +31,6 @@ const APP_CONFIG = {
   }
 };
 
-// ======================= ДАННЫЕ =======================
 const NEWS_DATA = [
   {
     date: "28 апреля 2025",
@@ -56,7 +55,6 @@ const NEWS_DATA = [
   }
 ];
 
-// ======================= СИСТЕМА НОВОСТЕЙ =======================
 const NewsManager = (() => {
   const generateArticleHTML = article => `
     <div class="news-meta">
@@ -161,7 +159,6 @@ const NewsManager = (() => {
     }
   };
 })();
-
 
 const DocumentSecurity = (() => {
   const decodeBase64 = str => atob(str);
