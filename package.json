@@ -1,0 +1,20 @@
+{
+  "name": "comments-app",
+  "version": "1.0.0",
+  "description": "Script for comments processing",
+  "main": "assets/js/comments.js",
+  "scripts": {
+    "start": "node assets/js/comments.js",
+    "lint": "eslint assets/js/**/*.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
