@@ -14,13 +14,14 @@ $(document).ready(function() {
     });
 
     
-  const originalRepoURL = "https://zoliryzik.ru/";
-  if (window.location.href !== originalRepoURL) {
-    alert("⚠️ Этот сайт — копия! Оригинал: " + originalRepoURL + " "+ window.location.href);
-    // Или добавьте красный баннер на страницу
+  // Проверяем, совпадает ли текущий домен с оригиналом
+  const originalDomain = "https://ваш_домен.ru"; // Замените на ваш домен, например: "https://сайт.ru"
+
+  if (window.location.origin !== originalDomain) {
+    // Показываем предупреждение только если домен не оригинальный
     document.body.innerHTML += `
-      <div style="position: fixed; top: 0; background: red; color: white; padding: 10px; width: 100%; text-align: center;">
-        Это копия! Оригинал: <a href="${originalRepoURL}" style="color: white;">${originalRepoURL}</a>
+      <div style="position: fixed; top: 0; background: red; color: white; padding: 10px; width: 100%; text-align: center; z-index: 9999;">
+        ⚠️ Это копия! Оригинальный сайт: <a href="${originalDomain}" style="color: white; text-decoration: underline;">${originalDomain}</a>
       </div>
     `;
   }
