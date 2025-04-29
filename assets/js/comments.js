@@ -1,5 +1,9 @@
-const API_KEY = 'GITHUB_SECRET_PLACEHOLDER';
-console.log("Секрет:", API_KEY); 
+// Для Node.js (GitHub Actions)
+if (!process.env.COMMENTS_API_KEY) {
+  throw new Error("Секрет COMMENTS_API_KEY не найден!");
+}
+
+console.log("Секрет загружен (длина:", process.env.COMMENTS_API_KEY.length + " символов)");
 const SHEET_ID = '1f2Ka0lWqId-KAZBggq3tDD-WHy_Ggu-0X8_CpZiB7IM';
 const SHEET_NAME = 'Ответы';
 const SCROLL_SPEED = 40;
