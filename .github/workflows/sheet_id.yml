@@ -1,0 +1,45 @@
+name: Process Comments Script
+
+on:
+  push:
+    branches: [ main, dev ]
+    paths:
+      - 'assets/js/comments.js'  # Запускать только при изменении этого файла
+
+jobs:
+  process-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'  # Кэширование зависимостей
+
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'  # Устанавливать, если нет кэша
+        run: npm ci  # Чистая установка из package-lock.json
+
+      - name: Lint and validate
+        run: npx eslint assets/js/comments.js  # Пример проверки кода
+
+      - name: Run comments script
+        env:
+          API_KEY: ${{ secrets.COMMENTS_API_KEY }}
+          NODE_ENV: production
+        run: |
+          node assets/js/comments.js
+          echo "Script executed successfully"
+
+      - name: Archive results
+        if: always()  # Выполнять даже при ошибке
+        uses: actions/upload-artifact@v3
+        with:
+          name: script-results
+          path: |
+            *.log
+            output/*.json
