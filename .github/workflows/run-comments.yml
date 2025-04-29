@@ -1,0 +1,28 @@
+name: Run Comments Script
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/js/comments.js'  # Запускать только при изменении этого файла
+  workflow_dispatch:  # Ручной запуск через интерфейс GitHub
+
+jobs:
+  execute-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4  # Клонирует репозиторий
+
+      - name: Verify file existence (опционально)
+        run: ls -la assets/js/comments.js  # Проверка наличия файла
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run comments script
+        env:
+          COMMENTS_API_KEY: ${{ secrets.COMMENTS_API_KEY }}  # Секрет из GitHub
+        run: node assets/js/comments.js  # Запуск скрипта
