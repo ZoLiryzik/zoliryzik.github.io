@@ -15,17 +15,34 @@ document.getElementById('news-search').addEventListener('input', function(e) {
   document.querySelector('.no-results').style.display = 
       visibleCount > 0 ? 'none' : 'block'
 })
-  // Проверяем, совпадает ли текущий домен с оригиналом
-  const originalDomain = "https://zoliryzik.ru"; // Замените на ваш домен, например: "https://сайт.ru"
+// ========== Domain Protection ==========
+const DomainValidator = (() => {
+  const validDomains = [
+    'aHR0cHM6Ly96b2xpcnl6aWsucnU=',      // zoliryzik.ru
+    //'aHR0cHM6Ly9zcnYuem9saXJ5emlrLnJ1', // srv.zoliryzik.ru
+    'aHR0cHM6Ly96b2xpcnl6aWsuZ2l0aHViLmlv' // zoliryzik.github.io
+  ].map(d => atob(d));
 
-  if (window.location.origin !== originalDomain) {
-    // Показываем предупреждение только если домен не оригинальный
-    document.body.innerHTML += `
-      <div style="position: fixed; top: 0; background: red; color: white; padding: 10px; width: 100%; text-align: center; z-index: 9999;">
-        ⚠️ Это копия! Оригинальный сайт: <a href="${originalDomain}" style="color: white; text-decoration: underline;">${originalDomain}</a>
+  const checkDomain = () => {
+    const current = window.location.origin;
+    return validDomains.some(d => current === d || current.endsWith(`.${d}`));
+  };
+
+  const showWarning = () => {
+    const warning = document.createElement('div');
+    warning.innerHTML = `
+      <div class="domain-warning">
+        ⚠️ Это копия сайта! Посетите официальный ресурс: 
+        <a href="https://zoliryzik.ru" target="_blank">zoliryzik.ru</a>
       </div>
     `;
-  }
+    document.body.prepend(warning);
+  };
+
+  return {
+    init: () => !checkDomain() && showWarning()
+  };
+})();
 // Анимация новостей
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
