@@ -1,159 +1,219 @@
-// ========== News Data ==========
-const newsData = [
-  {
-    date: "28 апреля 2025",
-    title: "Отзывы на сервере",
-    content: "Добавлены отзывы. Теперь можно написать отзыв и посмотреть оставленные отзывы, также данная система есть и на дискорд сервере",
-    tags: ["сервер", "сайт", "обновление"],
-    searchKeys: "отзывы бот обновление сервер"
-  },
-  {
-    date: "10 апреля 2025",
-    title: "Обновление дизайна сервера",
-    content: "Был полностью обновлен дизайн Discord сервера. Добавлены новые каналы, роли и система модерации.",
-    tags: ["сервер", "обновление"],
-    searchKeys: "обновление сервер дизайн"
-  },
-  {
-    date: "15 марта 2025",
-    title: "Изменения в команде",
-    content: "После долгой работы на CoffeeLand было принято решение сосредоточиться на развитии собственного сообщества.",
-    tags: ["изменения", "команда"],
-    searchKeys: "уход CoffeeLand изменения"
-  }
-];
-
-// ========== News Functions ==========
-function createNewsArticle(article) {
-  const articleEl = document.createElement('div');
-  articleEl.className = 'news-article';
-  articleEl.dataset.search = article.searchKeys;
-
-  articleEl.innerHTML = `
-    <div class="news-date">${article.date}</div>
-    <h3 class="news-title">${article.title}</h3>
-    <div class="news-content">
-      <p>${article.content}</p>
-    </div>
-    <div class="news-tags">
-      ${article.tags.map(tag => `<span class="news-tag">${tag}</span>`).join('')}
-    </div>
-  `;
-
-  return articleEl;
-}
-
-function initNews() {
-  const container = document.getElementById('news-container');
-  newsData.forEach(article => {
-    container.appendChild(createNewsArticle(article));
-  });
-}
-
-function initNewsSearch() {
-  const searchInput = document.getElementById('news-search');
-  const noResults = document.querySelector('.no-results');
-  
-  const searchHandler = (e) => {
-    const searchTerm = e.target.value.toLowerCase().trim();
-    let visibleCount = 0;
-
-    document.querySelectorAll('.news-article').forEach(article => {
-      const matches = article.dataset.search.toLowerCase().includes(searchTerm) ||
-                     article.textContent.toLowerCase().includes(searchTerm);
-      article.style.display = matches ? 'block' : 'none';
-      if (matches) visibleCount++;
-    });
-
-    noResults.style.display = visibleCount ? 'none' : 'block';
+// ========== News System ==========
+const NewsManager = (() => {
+  // Конфигурация
+  const config = {
+    containerId: 'news-container',
+    searchId: 'news-search',
+    noResultsClass: 'no-results'
   };
 
-  searchInput.addEventListener('input', searchHandler);
-}
-
-function initNewsAnimations() {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      entry.target.style.opacity = entry.isIntersecting ? 1 : 0;
-      entry.target.style.transform = entry.isIntersecting ? 'translateY(0)' : 'translateY(20px)';
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.news-article').forEach(article => {
-    article.style.transition = 'all 0.5s ease';
-    observer.observe(article);
-  });
-}
-
-// ========== Domain Protection ==========
-const DOMAIN_PROTECTION = (() => {
-  const encoded = [
-    'em9saXJ5emlrLnJ1',         // zoliryzik.ru
-    'c3J2LnpvbGlyeXppay5ydQ==', // srv.zoliryzik.ru
-    'em9saXJ5emlrLmdpdGh1Yi5pbw==' // zoliryzik.github.io
+  // Данные новостей
+  const newsData = [
+    {
+      date: "28 апреля 2025",
+      title: "Отзывы на сервере",
+      content: "Добавлены отзывы. Теперь можно написать отзыв и посмотреть оставленные отзывы, также данная система есть и на дискорд сервере",
+      tags: ["сервер", "сайт", "обновление"],
+      searchKeys: "отзывы бот обновление сервер"
+    },
+    {
+      date: "10 апреля 2025",
+      title: "Обновление дизайна сервера",
+      content: "Был полностью обновлен дизайн Discord сервера. Добавлены новые каналы, роли и система модерации.",
+      tags: ["сервер", "обновление"],
+      searchKeys: "обновление сервер дизайн"
+    },
+    {
+      date: "15 марта 2025",
+      title: "Изменения в команде",
+      content: "После долгой работы на CoffeeLand было принято решение сосредоточиться на развитии собственного сообщества.",
+      tags: ["изменения", "команда"],
+      searchKeys: "уход CoffeeLand изменения"
+    }
   ];
 
-  const domains = encoded.map(d => atob(d));
-  const currentOrigin = window.location.origin;
+  // Создание элемента новости
+  const createNewsArticle = article => {
+    try {
+      if (!article || typeof article !== 'object') {
+        throw new Error('Invalid article object');
+      }
+
+      const requiredFields = ['date', 'title', 'content', 'tags', 'searchKeys'];
+      const missingFields = requiredFields.filter(field => !article[field]);
+      
+      if (missingFields.length > 0) {
+        throw new Error(`Missing fields: ${missingFields.join(', ')}`);
+      }
+
+      const articleEl = document.createElement('article');
+      articleEl.className = 'news-article';
+      articleEl.dataset.search = article.searchKeys.toLowerCase();
+
+      articleEl.innerHTML = `
+        <div class="news-meta">
+          <time class="news-date">${article.date}</time>
+          <div class="news-tags">${
+            article.tags.map(tag => 
+              `<span class="news-tag">${tag}</span>`
+            ).join('')
+          }</div>
+        </div>
+        <h3 class="news-title">${article.title}</h3>
+        <div class="news-content">
+          <p>${article.content}</p>
+        </div>
+      `;
+
+      return articleEl;
+    } catch (error) {
+      console.error('Article creation error:', error);
+      return null;
+    }
+  };
+
+  // Инициализация новостей
+  const initNews = () => {
+    const container = document.getElementById(config.containerId);
+    
+    if (!container) {
+      console.error(`News container (#${config.containerId}) not found!`);
+      return;
+    }
+
+    container.innerHTML = '';
+
+    if (!newsData || !Array.isArray(newsData)) {
+      console.error('Invalid news data format');
+      return;
+    }
+
+    newsData.forEach(article => {
+      const element = createNewsArticle(article);
+      element && container.appendChild(element);
+    });
+  };
+
+  // Поиск новостей
+  const initSearch = () => {
+    const searchInput = document.getElementById(config.searchId);
+    const noResults = document.querySelector(`.${config.noResultsClass}`);
+
+    if (!searchInput || !noResults) {
+      console.error('Search elements not found');
+      return;
+    }
+
+    const handleSearch = event => {
+      const term = event.target.value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      document.querySelectorAll('.news-article').forEach(article => {
+        const matches = article.dataset.search.includes(term) || 
+                       article.textContent.toLowerCase().includes(term);
+        article.style.display = matches ? 'block' : 'none';
+        visibleCount += matches ? 1 : 0;
+      });
+
+      noResults.style.display = visibleCount ? 'none' : 'flex';
+    };
+
+    searchInput.addEventListener('input', handleSearch);
+  };
+
+  // Анимации
+  const initAnimations = () => {
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.news-article').forEach(article => {
+      article.style.opacity = 0;
+      article.style.transform = 'translateY(20px)';
+      article.style.transition = 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      observer.observe(article);
+    });
+  };
 
   return {
-    isAllowed: domains.some(d => 
-      currentOrigin === `https://${d}` || 
-      currentOrigin === `http://${d}` ||
-      currentOrigin.includes(`.${d}`)
+    init: () => {
+      initNews();
+      initSearch();
+      initAnimations();
+    }
   };
 })();
 
-if (!DOMAIN_PROTECTION.isAllowed) {
-  const warning = document.createElement('div');
-  warning.innerHTML = `
-    <div style="position:fixed;top:0;left:0;right:0;background:#dc3545;color:white;
-      padding:12px;text-align:center;z-index:9999;font-family:sans-serif;backdrop-filter:blur(5px)">
-      ⚠️ Неофициальная копия! Оригинальный сайт: 
-      <a href="https://zoliryzik.ru" 
-         style="color:white;text-decoration:underline;font-weight:bold">
-        zoliryzik.ru
-      </a>
-    </div>
-  `;
-  document.body.prepend(warning);
-}
+// ========== Domain Protection ==========
+const DomainValidator = (() => {
+  const validDomains = [
+    'aHR0cHM6Ly96b2xpcnl6aWsucnU=',      // zoliryzik.ru
+    'aHR0cHM6Ly9zcnYuem9saXJ5emlrLnJ1', // srv.zoliryzik.ru
+    'aHR0cHM6Ly96b2xpcnl6aWsuZ2l0aHViLmlv' // zoliryzik.github.io
+  ].map(d => atob(d));
 
-// ========== Video Player ==========
-function initVideo() {
-  const videoContainer = document.getElementById('youtube_video');
-  if (!videoContainer) return;
-
-  const loadYT = () => {
-    window.YT.ready(() => {
-      new YT.Player(videoContainer, {
-        videoId: 'dQw4w9WgXcQ',
-        playerVars: {
-          autoplay: 0,
-          modestbranding: 1,
-          rel: 0
-        },
-        events: {
-          onReady: (e) => e.target.setPlaybackQuality('hd1080')
-        }
-      });
-    });
+  const checkDomain = () => {
+    const current = window.location.origin;
+    return validDomains.some(d => current === d || current.endsWith(`.${d}`));
   };
 
-  if (!window.YT) {
+  const showWarning = () => {
+    const warning = document.createElement('div');
+    warning.innerHTML = `
+      <div class="domain-warning">
+        ⚠️ Это копия сайта! Посетите официальный ресурс: 
+        <a href="https://zoliryzik.ru" target="_blank">zoliryzik.ru</a>
+      </div>
+    `;
+    document.body.prepend(warning);
+  };
+
+  return {
+    init: () => !checkDomain() && showWarning()
+  };
+})();
+
+// ========== YouTube Player ==========
+const VideoPlayer = (() => {
+  const config = {
+    containerId: 'youtube_video',
+    videoId: 'dQw4w9WgXcQ',
+    playerVars: {
+      autoplay: 0,
+      modestbranding: 1,
+      rel: 0
+    }
+  };
+
+  const initPlayer = () => {
+    if (!document.getElementById(config.containerId)) return;
+
+    window.onYouTubeIframeAPIReady = () => {
+      new YT.Player(config.containerId, {
+        width: '100%',
+        height: '100%',
+        videoId: config.videoId,
+        playerVars: config.playerVars
+      });
+    };
+
     const tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
-    tag.onload = loadYT;
     document.head.appendChild(tag);
-  } else {
-    loadYT();
-  }
-}
+  };
 
-// ========== Initialization ==========
+  return { init: initPlayer };
+})();
+
+// ========== Main Initialization ==========
 document.addEventListener('DOMContentLoaded', () => {
-  initNews();
-  initNewsSearch();
-  initNewsAnimations();
-  initVideo();
+  DomainValidator.init();
+  NewsManager.init();
+  VideoPlayer.init();
 });
