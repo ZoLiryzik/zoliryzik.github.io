@@ -49,8 +49,8 @@ const NEWS_DATA = [
   },
   {
     date: "15 марта 2025",
-    title: "Изменения в команде",
-    content: "После долгой работы на CoffeeLand...",
+    title: "Уход из CoffeeLand",
+    content: "После долгой работы на CoffeeLand было принято решение уйти из проекта.",
     tags: ["изменения", "команда"],
     searchKeys: "уход CoffeeLand изменения"
   }
