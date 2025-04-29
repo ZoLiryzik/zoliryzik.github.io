@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Данные из Google Таблиц</title>
+    <style>
+        /* Оптимизированные стили */
+        :root {
+            --bg: #1a1a1a;
+            --text: #e0e0e0;
+            --accent: #ff4444;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: system-ui, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: #2d2d2d;
+        }
+        .data-table th, .data-table td {
+            padding: 1rem;
+            border: 1px solid #404040;
+            text-align: left;
+        }
+        .data-table th {
+            background: #333;
+            font-weight: 600;
+        }
+        .security-alert {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #331111;
+            color: var(--accent);
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 2px solid var(--accent);
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <div id="data-container"></div>
+
+    <script>
+        (() => {
+            // Защищенная конфигурация
+            const SECURE = (() => {
+                const d = [
+                    [104,116,116,112,115].map(c => String.fromCharCode(c)).join(''),
+                    atob('Ly9vbGk='),
+                    'ik'.split('').reverse().join('yrz').slice(0,3),
+                    atob('LnJ1')
+                ];
+                
+                const s = [
+                    atob('MWYyS2EwbFdxSWQ='),
+                    [45,75,65,90].map(c => String.fromCharCode(c)).join(''),
+                    'Bggq3tDD'.replace(/tD/g, 'tDD-').slice(0,8),
+                    'WHy_Ggu-0X8_'.replace(/_/g, '-'),
+                    'CpZiB7IM'.split(/(?=[A-Z])/).reverse().join('')
+                ];
+
+                return {
+                    DOMAIN: d.join('').replace('oliy','zoli'),
+                    SHEET: {
+                        ID: s.join('').replace(/-$/, ''),
+                        NAME: 'Ответы'
+                    }
+                };
+            })();
+
+            // Проверка домена
+            if (location.origin !== SECURE.DOMAIN) {
+                document.body.innerHTML = `
+                    <div class="security-alert">
+                        🔒 Доступ только с: ${SECURE.DOMAIN}
+                    </div>
+                `;
+                throw new Error('Domain mismatch');
+            }
+
+            // Безопасный вывод
+            const safe = {
+                html: (str) => str.replace(/[&<>]/g, c => ({
+                    '&': '&amp;', '<': '&lt;', '>': '&gt;'
+                }[c])),
+                text: (str) => str.replace(/<\/?[^>]+>/gi, '')
+            };
+
+            // Загрузка данных
+            const loadData = async () => {
+                try {
+                    const url = `https://docs.google.com/spreadsheets/d/${SECURE.SHEET.ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SECURE.SHEET.NAME)}`;
+                    const res = await fetch(url);
+                    
+                    if (!res.ok) throw new Error(`Ошибка ${res.status}`);
+                    
+                    const data = JSON.parse((await res.text()).slice(47, -2));
+                    const buildTable = () => {
+                        const table = document.createElement('table');
+                        table.className = 'data-table';
+                        
+                        // Заголовки
+                        const thead = data.table.cols.reduce((acc, col) => {
+                            const th = document.createElement('th');
+                            th.textContent = safe.text(col.label);
+                            acc.appendChild(th);
+                            return acc;
+                        }, document.createElement('thead'));
+                        
+                        // Данные
+                        const tbody = data.table.rows.reduce((acc, row) => {
+                            const tr = document.createElement('tr');
+                            row.c.forEach(cell => {
+                                const td = document.createElement('td');
+                                td.textContent = cell?.v ? safe.text(cell.v) : '';
+                                tr.appendChild(td);
+                            });
+                            acc.appendChild(tr);
+                            return acc;
+                        }, document.createElement('tbody'));
+                        
+                        table.append(thead, tbody);
+                        return table;
+                    };
+
+                    document.getElementById('data-container').appendChild(buildTable());
+                } catch (err) {
+                    document.getElementById('data-container').innerHTML = `
+                        <div class="security-alert">
+                            ⚠️ ${safe.html(err.message)}
+                        </div>
+                    `;
+                }
+            };
+
+            // Запуск
+            document.addEventListener('DOMContentLoaded', loadData);
+            Object.freeze(SECURE);
+        })();
+    </script>
+</body>
+</html>
