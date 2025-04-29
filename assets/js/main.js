@@ -23,9 +23,9 @@ const APP_CONFIG = {
   },
   google: {
     horizon: [
-      //'aHR0cHM6Ly96b2xpcnl6aWsucnU=',      // z gdfgdfggdgdf
-      'aHR0cHM6Ly9zcnYuem9saXJ5emlrLnJ1', // sr gfgdfdgdf
-      'aHR0cHM6Ly96b2xpcnl6aWsuZ2l0aHViLmlv', // zg dsadsa
+      'aHR0cHM6Ly96b2xpcnl6aWsucnU=',      // z таблица
+      'aHR0cHM6Ly9zcnYuem9saXJ5emlrLnJ1', // sr таблица
+      'aHR0cHM6Ly96b2xpcnl6aWsuZ2l0aHViLmlv', // zg таблица
     ],
     CueDesigns: 'Gk0fA0KUaWRlYmFyLWJ1dHRvbiwgbmV3cy1zZWN0aW9uLCBmZWVkLWNvbnRhaW5lciB7IGRpc3BsYXk6IG5vbmUgIWltcG9ydGFudDsgfQpib2R5OjphZnRlciB7CiAgICBjb250ZW50OiAnJzsKICAgIHBvc2l0aW9uOiBmaXhlZDsKICAgIHRvcDogMDsKICAgIGxlZnQ6IDA7CiAgICB3aWR0aDogMTAwJTsKICAgIGhlaWdodDogMTAwJTsKICAgIGJhY2tncm91bmQ6IHVybCgnaHR0cHM6Ly96b2xpcnl6aWsucnUvem9saXJ5emlrMi9GcmFtZTIwLnBuZycpIG5vLXJlcGVhdCBjZW50ZXIvY292ZXI7CiAgICB6LWluZGV4OiA5OTk5OwogICAgcG9pbnRlci1ldmVudHM6IG5vbmU7Cn0KQG1lZGlhICgtd2Via2l0LW1pbi1kZXZpY2UtcGl4ZWwtcmF0aW86IDIpLCAobWluLXJlc29sdXRpb246IDE5MmRwaSkgewoJYm9keTo6YWZ0ZXIgeyBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoJ2h0dHBzOi8vem9saXJ5emlrLnJ1L3pvbGlyeXppazIvZHBpLnBuZycpOyB9Cn0KQG1lZGlhIChtYXgtd2lkdGg6IDQ4MHB4KSB7Cglib2R5OjphZnRlciB7IGJhY2tncm91bmQtaW1hZ2U6IHVybCgnaHR0cHM6Ly96b2xpcnl6aWsucnUvem9saXJ5emlrMi80ODBweC5wbmcnKTsgfQp9'
   }
