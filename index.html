@@ -185,18 +185,6 @@
       commentField.addEventListener('input', updateCounter);
   });
   </script>
-<script>
-  const originalRepoURL = "https://zoliryzik.ru/";
-  if (window.location.href !== originalRepoURL) {
-    alert("⚠️ Этот сайт — копия! Оригинал: " + originalRepoURL + " "+ window.location.href);
-    // Или добавьте красный баннер на страницу
-    document.body.innerHTML += `
-      <div style="position: fixed; top: 0; background: red; color: white; padding: 10px; width: 100%; text-align: center;">
-        Это копия! Оригинал: <a href="${originalRepoURL}" style="color: white;">${originalRepoURL}</a>
-      </div>
-    `;
-  }
-</script>
   <!-- Остальные скрипты -->
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/otz.js" defer></script>
