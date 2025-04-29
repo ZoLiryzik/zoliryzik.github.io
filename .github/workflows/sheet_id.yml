@@ -3,18 +3,16 @@ name: Process Comments Script
 on: [push]
 
 jobs:
-  run-script:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Run comments script
+      - uses: actions/checkout@v4
+      
+      - name: Подставить секрет в JS
         env:
           COMMENTS_API_KEY: ${{ secrets.COMMENTS_API_KEY }}
-        run: node assets/js/comments.js
+        run: |
+          sed -i 's/GITHUB_SECRET_PLACEHOLDER/$COMMENTS_API_KEY/g' assets/js/comments.js
+      
+      - name: Деплой
+        uses: some-deploy-action@v3
