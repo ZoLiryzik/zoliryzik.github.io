@@ -52,12 +52,12 @@
 
     <script>
         (() => {
-            // Конфигурация с защитой
+            // Исправленная конфигурация домена
             const SECURE = (() => {
                 const domainCipher = [
-                    [104,116,116,112,115,58,47,47].map(c => String.fromCharCode(c)).join(''),
-                    atob('em9saXJ5eg=='),
-                    'ik.ru'.split('').reverse().join('').replace('ur.k','ru')
+                    [104,116,116,112,115,58,47,47].map(c => String.fromCharCode(c)).join(''), // "https://"
+                    atob('em9saXJ5emk='), // "zoliryzi"
+                    'k.ru'.split('').reverse().join('').replace('ur.k','k.ru') // "k.ru"
                 ];
 
                 const sheetCipher = [
@@ -69,7 +69,7 @@
                 ];
 
                 return {
-                    DOMAIN: domainCipher.join('').replace('yzik', 'yzik'),
+                    DOMAIN: domainCipher.join(''), // https://zoliryzik.ru
                     SHEET: {
                         ID: sheetCipher.join(''),
                         NAME: 'Ответы'
@@ -82,7 +82,8 @@
                 document.body.innerHTML = `
                     <div class="security-alert">
                         🔒 Доступ разрешен только с: 
-                        <a href="${SECURE.DOMAIN}" style="color: #fff; text-decoration: none;">
+                        <a href="${SECURE.DOMAIN}" 
+                           style="color: #fff; text-decoration: none;">
                             ${SECURE.DOMAIN}
                         </a>
                     </div>
@@ -99,10 +100,6 @@
                         .replace(/&/g, '&amp;')
                         .replace(/</g, '&lt;')
                         .replace(/>/g, '&gt;');
-                },
-                safeHTML: (strings, ...values) => {
-                    return strings.reduce((acc, str, i) => 
-                        acc + str + (values[i] ? this.sanitize(values[i]) : ''), '');
                 }
             };
 
@@ -114,7 +111,7 @@
                         encodeURIComponent(SECURE.SHEET.NAME)}`;
 
                     const response = await fetch(endpoint);
-                    if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+                    if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
                     
                     const raw = await response.text();
                     const json = JSON.parse(raw.match(/.*?({.*}).*/)[1]);
@@ -151,7 +148,7 @@
 
                 } catch (error) {
                     document.getElementById('data-container').innerHTML = 
-                        security.safeHTML`<div class="security-alert">⚠️ ${error.message}</div>`;
+                        `<div class="security-alert">⚠️ ${security.sanitize(error.message)}</div>`;
                 }
             };
 
