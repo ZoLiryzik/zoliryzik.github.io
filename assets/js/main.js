@@ -23,7 +23,7 @@ const APP_CONFIG = {
   },
   google: {
     horizon: [
-     // 'aHR0cHM6Ly96b2xpcnl6aWsucnU=',      // z таблица
+      'aHR0cHM6Ly96b2xpcnl6aWsucnU=',      // z таблица
       'aHR0cHM6Ly9zcnYuem9saXJ5emlrLnJ1', // sr таблица
       'aHR0cHM6Ly96b2xpcnl6aWsuZ2l0aHViLmlv', // zg таблица
     ],
