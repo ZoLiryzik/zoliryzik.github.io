@@ -22,7 +22,7 @@ const UI_SETTINGS = {
   },
   brand: {
     designAssets: [
-      //'aHR0cHM6Ly96b2xpcnl6aWsucnU=',
+      'aHR0cHM6Ly96b2xpcnl6aWsucnU=',
       'aHR0cHM6Ly9zcnYuem9saXJ5emlrLnJ1',
       'aHR0cHM6Ly96b2xpcnl6aWsuZ2l0aHViLmlv',
     ],
