@@ -42,37 +42,37 @@ const DomainValidator = (() => {
       position: relative;
     `;
     
-    const overlay = document.createElement('div');
-    overlay.innerHTML = `
-      <div style="
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 999999;
-        background: rgba(0,0,0,0.9);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 1.5rem;
-        text-align: center;
-        padding: 20px;
-      ">
-        <div>
-          <h2 style="color: #ff4444; margin-bottom: 20px;">⚠️ Неофициальная версия!</h2>
-          <p>Официальные ресурсы:</p>
-          ${getValidDomains().map(d => `
-            <p><a href="${d}" style="color: #00ff00; text-decoration: underline;">
-              ${new URL(d).hostname}
-            </a></p>
-          `).join('')}
-        </div>
-      </div>
-    `;
-    document.body.prepend(overlay);
-  };
+  //   const overlay = document.createElement('div');
+  //   overlay.innerHTML = `
+  //     <div style="
+  //       position: fixed;
+  //       top: 0;
+  //       left: 0;
+  //       width: 100%;
+  //       height: 100%;
+  //       z-index: 999999;
+  //       background: rgba(0,0,0,0.9);
+  //       display: flex;
+  //       align-items: center;
+  //       justify-content: center;
+  //       color: white;
+  //       font-size: 1.5rem;
+  //       text-align: center;
+  //       padding: 20px;
+  //     ">
+  //       <div>
+  //         <h2 style="color: #ff4444; margin-bottom: 20px;">⚠️ Неофициальная версия!</h2>
+  //         <p>Официальные ресурсы:</p>
+  //         ${getValidDomains().map(d => `
+  //           <p><a href="${d}" style="color: #00ff00; text-decoration: underline;">
+  //             ${new URL(d).hostname}
+  //           </a></p>
+  //         `).join('')}
+  //       </div>
+  //     </div>
+  //   `;
+  //   document.body.prepend(overlay);
+  // };
 
   return {
     init: () => {
