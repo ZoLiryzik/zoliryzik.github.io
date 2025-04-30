@@ -1,3 +1,45 @@
+/* Обн стили *\
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem 0;
+}
+
+.news-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.news-card:hover {
+  transform: translateY(-3px);
+}
+
+.news-label {
+  display: inline-block;
+  background: #f3f4f6;
+  color: #374151;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  margin: 0.25rem 0.5rem 0.25rem 0;
+}
+
+.no-results {
+  display: none;
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.125rem;
+  color: #6b7280;
+}
+
+
+
+
 .news-section {
     padding: 4rem 1rem;
     max-width: 1200px;
