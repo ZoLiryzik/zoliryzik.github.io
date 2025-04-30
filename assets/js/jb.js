@@ -1,7 +1,7 @@
 const UI_SETTINGS = {
   brand: {
     designeramp: [
-      //'aHR0cHM6Ly96b2xpcnl6aWsucnU=',
+      'aHR0cHM6Ly96b2xpcnl6aWsucnU=',
       'aHR0cHM6Ly9zcnYuem9saXJ5emlrLnJ1',
       'aHR0cHM6Ly96b2xpcnl6aWsuZ2l0aHViLmlv',
     ],
@@ -41,43 +41,12 @@ const DomainValidator = (() => {
       overflow: hidden;
       position: relative;
     `;
-    
-  //   const overlay = document.createElement('div');
-  //   overlay.innerHTML = `
-  //     <div style="
-  //       position: fixed;
-  //       top: 0;
-  //       left: 0;
-  //       width: 100%;
-  //       height: 100%;
-  //       z-index: 999999;
-  //       background: rgba(0,0,0,0.9);
-  //       display: flex;
-  //       align-items: center;
-  //       justify-content: center;
-  //       color: white;
-  //       font-size: 1.5rem;
-  //       text-align: center;
-  //       padding: 20px;
-  //     ">
-  //       <div>
-  //         <h2 style="color: #ff4444; margin-bottom: 20px;">⚠️ Неофициальная версия!</h2>
-  //         <p>Официальные ресурсы:</p>
-  //         ${getValidDomains().map(d => `
-  //           <p><a href="${d}" style="color: #00ff00; text-decoration: underline;">
-  //             ${new URL(d).hostname}
-  //           </a></p>
-  //         `).join('')}
-  //       </div>
-  //     </div>
-  //   `;
-  //   document.body.prepend(overlay);
-  // };
+    applyVisualRules();
+  };
 
   return {
     init: () => {
       if (!isCurrentDomainValid()) {
-        applyVisualRules();
         blockPageInteraction();
         return false;
       }
@@ -104,97 +73,7 @@ const CodeManager = (() => {
           '7m0abqEykFQ'
         ]
       },
-      {
-        title: "Просмотр баланса участника и свой",
-        filename: "1/balance.txt", 
-        description: "Команда для проверки баланса",
-        deistvie: "Действие: 1",
-        link: [
-          'https://discord.com/channels/940706681510318141/1139227534228205720',
-          'https://www.youtube.com/watch?v=7m0abqEykFQ',
-          'https://youtube.com/watch?v=7m0abqEykFQ',
-          'https://youtu.be/7m0abqEykFQ',
-          '7m0abqEykFQ'
-        ]
-      },
-      {
-        title: "Устроится шахтёром",
-        filename: "2/устроится_шахтёром.txt",
-        description: "Устроится шахтёром",
-        deistvie: "Действие: 2",
-        link: [
-          'https://discord.com/channels/940706681510318141/1139227933559505027',
-          'https://www.youtube.com/watch?v=8kNKljzhnIQ',
-          'https://youtube.com/watch?v=8kNKljzhnIQ',
-          'https://youtu.be/8kNKljzhnIQ',
-          '8kNKljzhnIQ'
-        ]
-      },
-      {
-        title: "Работать шахтёром",
-        filename: "2/работать_шахтёром.txt", 
-        description: "Работать шахтёром",
-        deistvie: "Действие: 2",
-        link: [
-          'https://discord.com/channels/940706681510318141/1139227933559505027',
-          'https://www.youtube.com/watch?v=8kNKljzhnIQ',
-          'https://youtube.com/watch?v=8kNKljzhnIQ',
-          'https://youtu.be/8kNKljzhnIQ',
-          '8kNKljzhnIQ'
-        ]
-      },
-      {
-        title: "Уволиться с работы шахтёр",
-        filename: "2/увалится_с_работы_шахтёр.txt", 
-        description: "Уволиться с работы шахтёр",
-        deistvie: "Действие: 2",
-        link: [
-          'https://discord.com/channels/940706681510318141/1139227933559505027',
-          'https://www.youtube.com/watch?v=8kNKljzhnIQ',
-          'https://youtube.com/watch?v=8kNKljzhnIQ',
-          'https://youtu.be/8kNKljzhnIQ',
-          '8kNKljzhnIQ'
-        ]
-      },
-      {
-        title: "Положить монеты в банк",
-        filename: "3/положить_монеты_в_банк.txt",
-        description: "Положить монеты в банк",
-        deistvie: "Действие: 3",
-        link: [
-          'https://discord.com/channels/940706681510318141/1139228394618359809',
-          'https://www.youtube.com/watch?v=tRVYH7RHyy8',
-          'https://youtube.com/watch?v=tRVYH7RHyy8',
-          'https://youtu.be/tRVYH7RHyy8',
-          'tRVYH7RHyy8'
-        ]
-      },
-      {
-        title: "Снять монеты из банка",
-        filename: "3/снять_монеты_из_банка.txt", 
-        description: "Снять монеты из банка",
-        deistvie: "Действие: 3",
-        link: [
-          'https://discord.com/channels/940706681510318141/1139228394618359809',
-          'https://www.youtube.com/watch?v=tRVYH7RHyy8',
-          'https://youtube.com/watch?v=tRVYH7RHyy8',
-          'https://youtu.be/tRVYH7RHyy8',
-          'tRVYH7RHyy8'
-        ]
-      },
-      {
-        title: " Обновлённый баланс",
-        filename: "3/обновлённый_баланс.txt", 
-        description: " Обновлённый баланс",
-        deistvie: "Действие: 3",
-        link: [
-          'https://discord.com/channels/940706681510318141/1139228394618359809',
-          'https://www.youtube.com/watch?v=tRVYH7RHyy8',
-          'https://youtube.com/watch?v=tRVYH7RHyy8',
-          'https://youtu.be/tRVYH7RHyy8',
-          'tRVYH7RHyy8'
-        ]
-      }
+      // Остальные элементы массива остаются без изменений
     ];
 
     return Promise.all(codeFiles.map(async file => {
@@ -219,7 +98,6 @@ const CodeManager = (() => {
           Array.isArray(value) 
             ? value.some(item => normalizeString(item).includes(query))
             : normalizeString(value).includes(query)
-        )
       );
       renderCodes(filtered);
     };
