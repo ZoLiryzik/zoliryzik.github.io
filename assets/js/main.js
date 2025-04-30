@@ -1,14 +1,14 @@
 const UI_SETTINGS = {
   content: {
-    viewportId: 'content-view',
-    filterId: 'content-filter',
+    viewportId: 'news-container',
+    filterId: 'news-search',
     elements: {
-      emptyState: '.empty-indicator',
-      item: '.content-card'
+      emptyState: '.no-results',
+      item: '.news-card'
     },
     styles: {
-      card: 'content-card',
-      label: 'content-label'
+      card: 'news-card',
+      label: 'news-label'
     },
     requirements: {
       mandatory: ['timestamp', 'heading', 'body', 'labels', 'filterTerms']
@@ -56,16 +56,18 @@ const CONTENT_ITEMS = [
 
 const ContentRenderer = (() => {
   const createCardHTML = item => `
+  <article class="news-card">
     <div class="meta-info">
       <time class="time-stamp">${item.timestamp}</time>
       <div class="label-group">
         ${item.labels.map(label => 
-          `<span class="${UI_SETTINGS.content.styles.label}">${label}</span>`
+          `<span class="news-label">${label}</span>`
         ).join('')}
       </div>
     </div>
     <h3 class="card-heading">${item.heading}</h3>
-    <div class="card-body"><p>${item.body}</p></div>`;
+    <div class="card-body"><p>${item.body}</p></div>
+  </article>`;
 
   const validateItem = item => {
     if (!item || typeof item !== 'object') 
