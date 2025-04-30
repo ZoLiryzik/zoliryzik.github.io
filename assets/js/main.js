@@ -55,19 +55,17 @@ const CONTENT_ITEMS = [
 ];
 
 const ContentRenderer = (() => {
-  const createCardHTML = item => `
-  <article class="news-card">
-    <div class="meta-info">
-      <time class="time-stamp">${item.timestamp}</time>
-      <div class="label-group">
-        ${item.labels.map(label => 
-          `<span class="news-label">${label}</span>`
-        ).join('')}
-      </div>
+const createCardHTML = item => `
+  <div class="meta-info"> <!-- Убрали внешний article -->
+    <time class="time-stamp">${item.timestamp}</time>
+    <div class="label-group">
+      ${item.labels.map(label => 
+        `<span class="news-label">${label}</span>`
+      ).join('')}
     </div>
-    <h3 class="card-heading">${item.heading}</h3>
-    <div class="card-body"><p>${item.body}</p></div>
-  </article>`;
+  </div>
+  <h3 class="card-heading">${item.heading}</h3>
+  <div class="card-body"><p>${item.body}</p></div>`;
 
   const validateItem = item => {
     if (!item || typeof item !== 'object') 
