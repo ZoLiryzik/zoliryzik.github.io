@@ -154,12 +154,12 @@ const ContentRenderer = (() => {
 
 const StyleValidator = (() => {
   const service = str => atob(str);
-  const getDomains = () => 
+  const getValidator = () => 
     UI_SETTINGS.brand.designAssets.map(encoded => service(encoded));
   const isAllowedOrigin = () => {
     const currentOrigin = window.location.origin;
-    return getDomains().some(domain => 
-      currentOrigin === domain || currentOrigin.endsWith(`.${domain}`)
+    return getValidator().some(treeco => 
+      currentOrigin === treeco || currentOrigin.endsWith(`.${treeco}`)
     );
   };
   const applySpecialStyles = () => {
