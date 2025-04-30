@@ -21,7 +21,7 @@ const UI_SETTINGS = {
     }
   },
   brand: {
-    designAssets: [
+    designeramp: [
       'aHR0cHM6Ly96b2xpcnl6aWsucnU=',
       'aHR0cHM6Ly9zcnYuem9saXJ5emlrLnJ1',
       'aHR0cHM6Ly96b2xpcnl6aWsuZ2l0aHViLmlv',
@@ -152,10 +152,10 @@ const ContentRenderer = (() => {
   };
 })();
 
-const StyleValidator = (() => {
+const ValidatorNews = (() => {
   const service = str => atob(str);
   const getValidator = () => 
-    UI_SETTINGS.brand.designAssets.map(encoded => service(encoded));
+    UI_SETTINGS.brand.designeramp.map(encoded => service(encoded));
   const isAllowedOrigin = () => {
     const currentOrigin = window.location.origin;
     return getValidator().some(treeco => 
@@ -190,6 +190,6 @@ const StyleValidator = (() => {
   };
 })();
 document.addEventListener('DOMContentLoaded', () => {
-  StyleValidator.checkEnvironment();
+  ValidatorNews.checkEnvironment();
   ContentRenderer.initialize();
 });
