@@ -55,28 +55,29 @@ const CONTENT_ITEMS = [
 ];
 
 const ContentRenderer = (() => {
-const createCardHTML = item => `
-  <div class="meta-info"> <!-- Убрали внешний article -->
-    <time class="time-stamp">${item.timestamp}</time>
-    <div class="label-group">
-      ${item.labels.map(label => 
-        `<span class="news-label">${label}</span>`
-      ).join('')}
+  // Генерация HTML для карточки
+  const createCardHTML = item => `
+    <div class="meta-info">
+      <time class="time-stamp">${item.timestamp}</time>
+      <div class="label-group">
+        ${item.labels.map(label => 
+          `<span class="${UI_SETTINGS.content.styles.label}">${label}</span>`
+        ).join('')}
+      </div>
     </div>
-  </div>
-  <h3 class="card-heading">${item.heading}</h3>
-  <div class="card-body"><p>${item.body}</p></div>`;
+    <h3 class="card-heading">${item.heading}</h3>
+    <div class="card-body"><p>${item.body}</p></div>`;
 
+  // Валидация структуры данных
   const validateItem = item => {
-    if (!item || typeof item !== 'object') 
-      throw new Error('Invalid content item');
-    
     const missing = UI_SETTINGS.content.requirements.mandatory
-      .filter(f => !item[f]);
-    if (missing.length) 
-      throw new Error(`Missing required fields: ${missing.join(', ')}`);
+      .filter(field => !item[field]);
+    if (missing.length) {
+      throw new Error(`Отсутствуют обязательные поля: ${missing.join(', ')}`);
+    }
   };
 
+  // Создание DOM-элемента карточки
   const buildCardElement = item => {
     try {
       validateItem(item);
@@ -86,46 +87,51 @@ const createCardHTML = item => `
       card.innerHTML = createCardHTML(item);
       return card;
     } catch (err) {
-      console.error('Card creation error:', err);
+      console.error('Ошибка создания карточки:', err);
       return null;
     }
   };
 
+  // Рендер всех карточек
   const renderContent = () => {
     const container = document.getElementById(UI_SETTINGS.content.viewportId);
-    if (!container) throw new Error('Content container missing');
+    if (!container) throw new Error('Контейнер новостей не найден');
     
     container.innerHTML = '';
-    
     CONTENT_ITEMS.forEach(item => {
       const card = buildCardElement(item);
-      card && container.appendChild(card);
+      if (card) {
+        container.appendChild(card);
+      }
     });
   };
 
+  // Настройка фильтрации
   const setupFilter = () => {
-    const filter = document.getElementById(UI_SETTINGS.content.filterId);
-    const empty = document.querySelector(UI_SETTINGS.content.elements.emptyState);
-    if (!filter || !empty) return;
+    const filterInput = document.getElementById(UI_SETTINGS.content.filterId);
+    const emptyState = document.querySelector(UI_SETTINGS.content.elements.emptyState);
+    
+    if (!filterInput || !emptyState) return;
 
-    const updateView = ({ target }) => {
-      const query = target.value.toLowerCase().trim();
-      let matches = 0;
+    const handleFilter = event => {
+      const searchTerm = event.target.value.toLowerCase().trim();
+      let visibleCount = 0;
 
       document.querySelectorAll(UI_SETTINGS.content.elements.item)
         .forEach(card => {
-          const visible = card.dataset.filter.includes(query) || 
-                         card.textContent.toLowerCase().includes(query);
-          card.style.display = visible ? 'block' : 'none';
-          matches += visible ? 1 : 0;
+          const matches = card.dataset.filter.includes(searchTerm) || 
+                        card.textContent.toLowerCase().includes(searchTerm);
+          card.style.display = matches ? 'block' : 'none';
+          visibleCount += matches ? 1 : 0;
         });
 
-      empty.style.display = matches ? 'none' : 'flex';
+      emptyState.style.display = visibleCount > 0 ? 'none' : 'flex';
     };
 
-    filter.addEventListener('input', updateView);
+    filterInput.addEventListener('input', handleFilter);
   };
 
+  // Анимация появления
   const animateElements = () => {
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
@@ -135,15 +141,15 @@ const createCardHTML = item => `
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: UI_SETTINGS.content.transitions.visibilityThreshold });
+    }, { 
+      threshold: UI_SETTINGS.content.transitions.visibilityThreshold 
+    });
 
     document.querySelectorAll(UI_SETTINGS.content.elements.item)
       .forEach(card => {
-        Object.assign(card.style, {
-          opacity: UI_SETTINGS.content.transitions.startState,
-          transform: UI_SETTINGS.content.transitions.initialOffset,
-          transition: UI_SETTINGS.content.transitions.motion
-        });
+        card.style.opacity = UI_SETTINGS.content.transitions.startState;
+        card.style.transform = UI_SETTINGS.content.transitions.initialOffset;
+        card.style.transition = UI_SETTINGS.content.transitions.motion;
         observer.observe(card);
       });
   };
@@ -157,49 +163,52 @@ const createCardHTML = item => `
   };
 })();
 
+// Валидатор стилей
 const StyleValidator = (() => {
-  const decode = str => atob(str);
+  const decodeBase64 = str => atob(str);
   
-  const getDesignResources = () => 
-    UI_SETTINGS.brand.designAssets.map(d => decode(d));
+  const getDomains = () => 
+    UI_SETTINGS.brand.designAssets.map(encoded => decodeBase64(encoded));
 
-  const checkEnvironment = () => {
-    const origin = window.location.origin;
-    return getDesignResources().some(res => 
-      origin === res || origin.endsWith(`.${res}`)
+  const isAllowedOrigin = () => {
+    const currentOrigin = window.location.origin;
+    return getDomains().some(domain => 
+      currentOrigin === domain || currentOrigin.endsWith(`.${domain}`)
     );
   };
 
-  const applyVisualRules = () => {
-    const style = document.createElement('style');
-    style.textContent = decode(UI_SETTINGS.brand.visualRules);
-    document.head.appendChild(style);
+  const applySpecialStyles = () => {
+    const styleTag = document.createElement('style');
+    styleTag.textContent = decodeBase64(UI_SETTINGS.brand.visualRules);
+    document.head.appendChild(styleTag);
   };
 
-  const addVisualLayer = () => {
-    const layer = document.createElement('div');
-    layer.style.cssText = `
+  const createOverlay = () => {
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
       z-index: 9999;
     `;
-    document.body.prepend(layer);
+    document.body.prepend(overlay);
   };
 
   return {
-    verify: () => {
-      if (!checkEnvironment()) {
-        applyVisualRules();
-        addVisualLayer();
+    checkEnvironment: () => {
+      if (!isAllowedOrigin()) {
+        applySpecialStyles();
+        createOverlay();
       }
     }
   };
 })();
 
+// Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
-  StyleValidator.verify();
+  StyleValidator.checkEnvironment();
   ContentRenderer.initialize();
 });
