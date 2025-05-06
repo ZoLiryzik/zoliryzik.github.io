@@ -77,7 +77,7 @@
         }
 
         fieldset {
-            border: 1px solid #ddd;
+            border: 1px solid var(--primary-accent);
             border-radius: 4px;
             margin-bottom: 15px;
             padding: 10px;
@@ -99,7 +99,7 @@
     padding: 25px;
     overflow-y: auto;
     z-index: 9999;
-    border-left: 3px solid #7289DA;
+    border-left: 3px solid var(--primary-accent);
     color: #ffffff;
 }
 
