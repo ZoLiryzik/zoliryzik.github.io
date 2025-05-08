@@ -1,0 +1,140 @@
+.form-container {
+  max-width: 640px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background: rgba(17, 24, 39, 0.85);
+  border-radius: 20px;
+  border: 1px solid var(--primary-accent);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(47, 128, 60, 0.2);
+}
+
+.form-container h2 {
+  font-size: 2rem;
+  background: var(--bg-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-align: center;
+  margin: 0 0 2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+fieldset {
+  border: none;
+  margin: 0 0 2rem;
+  padding: 0;
+  position: relative;
+}
+
+legend {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+legend::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--light-accent);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.form-control {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border: 2px solid rgba(92, 171, 71, 0.2);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: var(--primary-accent);
+  box-shadow: 0 0 0 4px rgba(92, 171, 71, 0.15);
+  background: rgba(92, 171, 71, 0.03);
+}
+
+.form-control::placeholder {
+  color: var(--light-accent);
+  opacity: 0.4;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background: var(--primary-accent);
+}
+
+#charCount {
+  color: var(--light-accent);
+}
+
+.btn-primary {
+  background: var(--bg-gradient);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(153, 209, 75, 0.3);
+}
+
+.btn-primary::after {
+  background: linear-gradient(
+    45deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 75%
+  );
+}
+
+.btn-primary:hover {
+  box-shadow: 0 8px 24px rgba(92, 171, 71, 0.35);
+}
+
+.btn-primary:active {
+  box-shadow: 0 4px 12px rgba(47, 128, 60, 0.25);
+}
+
+.form-control:invalid:not(:focus):not(:placeholder-shown) {
+  border-color: /*#ef4444*/#1bff07;
+  background: rgba(239, 68, 68, 0.05);
+}
+
+/* Адаптация цветов для темного фона */
+.form-container {
+  --form-bg: rgba(23, 38, 28, 0.9);
+  background: var(--form-bg);
+}
+
+/* Градиентные акценты */
+.g-recaptcha iframe {
+  filter: hue-rotate(120deg) contrast(0.9) saturate(1.2);
+}
+
+/* Анимация фона формы */
+@keyframes form-glow {
+  0% { box-shadow: 0 0 20px rgba(92, 171, 71, 0.1); }
+  50% { box-shadow: 0 0 40px rgba(153, 209, 75, 0.2); }
+  100% { box-shadow: 0 0 20px rgba(92, 171, 71, 0.1); }
+}
+
+.form-container {
+  animation: form-glow 6s ease-in-out infinite;
+}
+
+/* Кастомный чекбокс рекапчи */
+.grecaptcha-badge { 
+  filter: hue-rotate(140deg) brightness(1.1);
+}
